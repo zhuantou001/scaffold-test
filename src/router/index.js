@@ -9,17 +9,17 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/hello',
       name: 'Hello',
       component: Hello
     },
     {
-      path: '/',
+      path: '/scaffold',
       name: 'scaffold',
       component: scaffold
     },
     {
-      path: '/',
+      path: '/scaffoldB',
       name: 'scaffoldB',
       component: scaffoldB
     }
