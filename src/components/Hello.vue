@@ -2,6 +2,7 @@
   <div class="hello">
     <img src="../assets/logo.png">
     <h1>{{ msg }}</h1>
+    <router-link to="/scaffold">Go to SCAFFOLD</router-link>
   </div>
 </template>
 
