@@ -9,7 +9,7 @@
     name: 'scaffold',
     data () {
       return {
-        msg: '您已经进入装修页面'
+        msg: '您已经进入装修页面B'
       }
     }
   }
