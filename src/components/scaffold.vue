@@ -1,24 +1,24 @@
+
+
 <template>
   <div class="scaffold">
+    <vueHeader></vueHeader>
     <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script>
+
+  import vueHeader from './common/header.vue'
   export default {
     name: 'scaffold',
     data () {
       return {
         msg: '您已经进入装修页面'
       }
+    },
+    components: {
+      vueHeader
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-
-</style>
