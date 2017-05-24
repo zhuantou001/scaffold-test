@@ -5,14 +5,18 @@ import scaffoldB from '@/components/scaffoldB'
 
 Vue.use(Router)
 
-const router = new Router()
-
-router.map({
-  '/scaffold': {
-    component: scaffold
-  },
-  '/scaffoldB': {
-    component: scaffoldB
-  }
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'scaffold',
+      component: scaffold
+    },
+    {
+      path: '/',
+      name: 'scaffoldB',
+      component: scaffoldB
+    }
+  ]
 })
-export default router
+
