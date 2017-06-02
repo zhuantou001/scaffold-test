@@ -20,9 +20,8 @@
             <li class="right" data-type="1"><a href="javascript:;"><span>{{pageSwitchtitle02}}</span></a></li>
         </ul>
         <div class="charge-desc">
-            <p id="fee0" class="fee">月费仅<span class="point">19</span>元，腾讯应用<span class="point1">专属全国流量免费</span></p>
-            <p id="fee1" class="fee fee-small" hidden>月费仅<span class="point">59</span>元，腾讯应用<span class="point1">专属全国流量免费</span></p>
-            <p id="fee-tips" class="tips">（非腾讯专属流量：省内1元500MB，省外2元500MB）</p>
+            <p id="fee0" class="fee">{{pageSwitchContent01}}</p>
+            <p id="fee1" class="fee fee-small" hidden>{{pageSwitchContent02}}</p>
         </div>
     </div>
     <p class="go-detail">
@@ -68,6 +67,12 @@
       },
       pageSwitchtitle02 () {
         return this.$store.state.switch_title02;
+      },
+      pageSwitchContent01 () {
+        return this.$store.state.switch_content01;
+      },
+      pageSwitchContent02 () {
+        return this.$store.state.switch_content02;
       }
     }
   };
