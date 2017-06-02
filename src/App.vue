@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import './components/common/style.scss'
+import './components/common/style.scss';
 
 export default {
 
-}
+};
 </script>
 

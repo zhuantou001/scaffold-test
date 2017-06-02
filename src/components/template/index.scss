@@ -1,0 +1,247 @@
+@import "./reset";
+$blue: #4ca9d4;
+$bg: #ececec;
+$font: #666;
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Adobe Heiti Std", Helvetica, Arial, sans-serif;
+  position: relative;
+  color: $font;
+  min-height: 100%;
+  &.grey {
+    background-color: $bg;
+  }
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.adaption {
+  width: 320px;
+  transform-origin:50% 0;
+}
+.top-img {
+  font-size: 0;
+  img {
+    width: 100%;
+    display: block;
+    vertical-align: bottom;
+  }
+}
+.apply {
+  padding: 0 20px;
+  background-color: #ececec;
+  .tips {
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    span {
+      color: $blue;
+    }
+  }
+  .switch-area {
+    border: 1PX solid #ccc;
+    background-color: #fff;
+    position: relative;
+    border-radius:3px;
+    .switch {
+      border-bottom: 1PX solid #ccc;
+      &.single li {
+        width: 100%;
+        border-right: 0;
+        border-radius:3PX 0 0 0;
+      }
+      li {
+        float: left;
+        width: 50%;
+        height: 59px;
+        font-size: 0;
+        background: url("./images/sim-grey.png") 50% 13px no-repeat;
+        box-sizing:border-box;
+        background-size:32px 20px;
+        &.left {
+          border-right: 1PX solid #ccc;
+          border-radius:3px 0 0 0;
+        }
+        &.right {
+          border-radius:0 3px 0 0;
+        }
+        a {
+          display: inline-block;
+          width: 100%;
+          height: 22px;
+          text-align: center;
+          text-decoration: none;
+          padding-top: 38px;
+          span {
+            display: block;
+            line-height: 12px;
+            font-size: 12px;
+            color: #bbb;
+            transform:scale(0.83);
+          }
+        }
+        &.checked {
+          background: #fafafa url("./images/sim_blue.png") 50% 13px no-repeat;
+          background-size:32px 20px;
+          span {
+            color: $blue;
+          }
+          position: relative;
+          &::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 7px solid #ccc;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 0;
+            position: absolute;
+            bottom: -7px;
+            left: 50%;
+            margin-left: -6px;
+          }
+          &::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 7px solid #fafafa;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 0;
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            margin-left: -6px;
+          }
+        }
+      }
+    }
+    .charge-desc {
+      font-size:0;
+      height: 36px;
+      text-align: center;
+      padding-top: 13px;
+      padding-bottom: 10px;
+      overflow: hidden;
+      .fee {
+        line-height: 16px;
+        font-size: 14px;
+        span {
+          color: $blue;
+        }
+        .point {
+          font-size: 17px;
+        }
+        .point1 {
+          font-size: 14px;
+        }
+      }
+
+        .tips {
+          display:inline-block;
+          font-size: 12px;
+          line-height: 12px;
+          white-space: nowrap;
+          transform:scale(0.76);
+          transform-origin: left;
+        }
+        .tips-bottom{
+          font-size: 12px;
+          line-height: 12px;
+          color: $blue;
+          white-space: nowrap;
+          transform:scale(0.91);
+      }
+    }
+  }
+  .go-detail {
+    line-height: 33px;
+    overflow: hidden;
+    position: relative;
+    .range-tips {
+      display: block;
+      font-size: 12px;
+      color: #a1a1a1;
+      transform-origin:0 50%;
+      transform:scale(0.66);
+      position: absolute;
+      a{
+        margin-left: 5px;
+        color: #a1a1a1;
+      }
+    }
+    .detail{
+      float: right;
+      display: inline-block;
+      line-height: 33px;
+      color: #a1a1a1;
+      font-size: 12px;
+      text-decoration: underline;
+    }
+  }
+  .btn-box {
+    .btn {
+      display: block;
+      width: 100%;
+      height: 48px;
+      line-height: 48px;
+      background-color: $blue;
+      font-size: 16px;
+      color: #FFF;
+      text-align: center;
+      text-decoration: none;
+      border-radius:3px;
+      &:link, &:visited, &:hover, &:active {
+        color: #FFF!important;
+      }
+    }
+  }
+}
+.charges-info {
+  font-size: 0;
+  img {
+    width: 100%;
+    display: block;
+    vertical-align: bottom;
+  }
+  .map-container {
+    position: relative;
+    .map-point {
+      position: absolute;
+    }
+  }
+}
+.cf:after {
+  content: '.';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.activity-tips{
+  text-align: center;
+  line-height: 30px;
+  white-space: nowrap;
+  font-size: 12px;
+  color: #a1a1a1;
+  transform-origin:50% 50%;
+  transform:scale(0.75);
+}
+.upload-apply{
+  background: #ececec;
+  padding: 15px 20px 100px 20px;
+  h3{
+    font-size: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1PX solid #c3c3c3;
+    margin: 0;
+  }
+}
+map{
+  area{
+    outline: none;
+  }
+}

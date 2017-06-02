@@ -1,24 +1,26 @@
 
 
 <template>
-  <div class="scaffold">
+  <div id="scaffold">
     <vueHeader></vueHeader>
-    <h1>{{ msg }}</h1>
+    <container></container>
   </div>
 </template>
 
 <script>
 
-  import vueHeader from './common/header.vue'
+  import vueHeader from './common/header.vue';
+  import container from './container.vue';
   export default {
     name: 'scaffold',
     data () {
       return {
         msg: '您已经进入装修页面'
-      }
+      };
     },
     components: {
-      vueHeader
+      vueHeader,
+      container
     }
-  }
+  };
 </script>

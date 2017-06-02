@@ -1,21 +1,46 @@
+$font26:26px;
 
 body, html {
   margin: 0;
   padding: 0;
   font-family: aileron,微软雅黑,"arial", "sans-serif";
 }
-
-#app{
-  margin:0 auto;
-  text-align:center;
+a {
+  text-decoration: none;
 }
 
+#app{
+}
 
+#vueHeader{
+  position: relative;
+  .header-title{
+    display: inline-block;
+    position: absolute;
+    right:10px;
+    top:10px;
+    line-height: 60px;
+    font-size: $font26;
+  }
+}
 
-
-
-
-
-
-
+#scaffold{
+  height: 100vh;
+  flex: 1 auto;
+  #container{
+    height: calc(100% - 60px);
+    display:flex;
+    &>.left {
+      flex:1;
+      overflow: hidden;
+      height: 100%;
+      border-right:1px solid #ddd;
+    }
+    &>.right {
+      flex:1;
+      overflow: hidden;
+      height: 100%;
+    }
+  }
+}
 
