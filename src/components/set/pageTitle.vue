@@ -1,8 +1,11 @@
 <template id="pageTitle">
-  <el-row :gutter="20">
-    <el-col :span="6"><label>标题</label></el-col>
-    <el-col :span="18"><el-input v-model="page_title" placeholder="请输入内容"></el-input></el-col>
-  </el-row>
+  <div class="assembly">
+    <h3><i class="el-icon-edit"></i> 添加标题</h3>
+    <el-row :gutter="20">
+      <el-col :span="6"><label>标题</label></el-col>
+      <el-col :span="18"><el-input v-model="page_title" placeholder="请输入内容"></el-input></el-col>
+    </el-row>
+  </div>
 </template>
 
 

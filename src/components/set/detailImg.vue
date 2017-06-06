@@ -1,20 +1,23 @@
 <template id="detailImg">
-  <el-row :gutter="20">
-    <el-col :span="6"><label>上传详情图</label></el-col>
-    <el-col :span="18">
-      <el-upload
-        class="upload-demo"
-        action=""
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :file-list="detailImgFileList"
-        :on-change="ObtainImgUrl"
-        list-type="picture-card">
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-      </el-upload>
-    </el-col>
-  </el-row>
+  <div class="assembly">
+    <h3><i class="el-icon-edit"></i> 详情图</h3>
+    <el-row :gutter="20">
+      <el-col :span="6"><label>上传详情图</label></el-col>
+      <el-col :span="18">
+        <el-upload
+          class="upload-demo"
+          action=""
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :file-list="detailImgFileList"
+          :on-change="ObtainImgUrl"
+          list-type="picture-card">
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 

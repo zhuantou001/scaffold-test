@@ -1,5 +1,6 @@
 <template id="switch">
-  <div>
+  <div class="assembly">
+    <h3><i class="el-icon-edit"></i> 添加选项卡</h3>
     <el-row :gutter="20">
       <el-col :span="6"><label>选项卡title01</label></el-col>
       <el-col :span="18"><el-input v-model="switch_title01" placeholder="请输入内容"></el-input></el-col>
@@ -30,7 +31,6 @@
         </el-input>
       </el-col>
     </el-row>
-    <el-row :gutter="20"></el-row>
   </div>
 </template>
 

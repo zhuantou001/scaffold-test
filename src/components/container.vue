@@ -7,14 +7,14 @@
               <templateLandingPage></templateLandingPage>
             </div>
           </div>
-          <div class="operation">
-            <div class="block">
-              <el-button type="success" @click="onSubmit">保存</el-button>
-            </div>
-            <div class="block">
-              <el-button type="warning">导出</el-button>
-            </div>
-          </div>
+          <!--<div class="operation">-->
+            <!--<div class="block">-->
+              <!--<el-button type="success" @click="onSubmit">保存</el-button>-->
+            <!--</div>-->
+            <!--<div class="block">-->
+              <!--<el-button type="warning">导出</el-button>-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
       </div>
       <div class="right">
@@ -22,6 +22,7 @@
           <setpageTitle></setpageTitle>
           <setTopImg></setTopImg>
           <setSwitch></setSwitch>
+          <setButton></setButton>
           <setdetailImg></setdetailImg>
         </div>
       </div>
@@ -32,6 +33,7 @@
   import setpageTitle from './set/pageTitle';
   import setTopImg from './set/setTopImg';
   import setSwitch from './set/switch';
+  import setButton from './set/addButton';
   import setdetailImg from './set/detailImg';
   import templateLandingPage from './template/template';
   import './web.scss';
@@ -51,6 +53,7 @@
       setpageTitle,
       setTopImg,
       setSwitch,
+      setButton,
       setdetailImg,
       templateLandingPage
     }

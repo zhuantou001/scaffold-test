@@ -1,4 +1,17 @@
 /* phone web page css */
+
+.assembly{
+  border:1px solid #ddd;
+  border-radius:6px;
+  padding:20px;
+  margin:20px;
+  h3{
+    color: rgb(32, 160, 255);
+    -webkit-margin-before: 0;
+  }
+}
+
+
 .left-space{
   display: flex;
   justify-content: center;
@@ -39,7 +52,4 @@
 
 .el-row {
   margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
 }

@@ -8,6 +8,8 @@
     </el-submenu>
     <span class="header-title">
        <getpageTitle></getpageTitle>
+      <el-button type="success">保存</el-button>
+      <el-button type="warning">导出</el-button>
     </span>
   </el-menu>
 </template>

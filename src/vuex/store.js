@@ -8,6 +8,8 @@ const store = new Vuex.Store({
   state: {
     page_title: '标题',
     topImageUrl: '',
+    button_font: '按钮标题',
+    buttonStyle: {buttonColor: '#4ca9d4'},
     switch_title01: '选项卡标题01',
     switch_title02: '选项卡标题02',
     switch_content01: '选项卡内容01',
@@ -20,6 +22,12 @@ const store = new Vuex.Store({
     },
     newTopImageUrl (state, msg) {
       state.topImageUrl = msg;
+    },
+    newAddbuttonFont (state, msg) {
+      state.button_font = msg;
+    },
+    newAddbuttonColor (state, msg) {
+      state.buttonStyle = msg;
     },
     newSwitchTitle01 (state, msg) {
       state.switch_title01 = msg;

@@ -1,19 +1,22 @@
 <template id="topImg">
-  <el-row :gutter="20">
-    <el-col :span="6"><label>上传头图</label></el-col>
-    <el-col :span="18">
-      <el-upload
-        class="avatar-uploader"
-        action=""
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :on-change="ObtainImgUrl"
-        :before-upload="beforeAvatarUpload">
-        <img v-if="topImageUrl" :src="topImageUrl" class="avatar">
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-    </el-col>
-  </el-row>
+  <div class="assembly">
+    <h3><i class="el-icon-edit"></i> 上传头图</h3>
+    <el-row :gutter="20">
+      <el-col :span="6"><label>上传头图</label></el-col>
+      <el-col :span="18">
+        <el-upload
+          class="avatar-uploader"
+          action=""
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :on-change="ObtainImgUrl"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="topImageUrl" :src="topImageUrl" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 

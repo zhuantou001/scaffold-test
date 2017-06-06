@@ -28,7 +28,7 @@
           <a  class="detail" href="#go-fee">查看资费详情</a>
       </p>
       <div class="btn-box">
-          <a id="apply" href="javascript:;" class="btn">限时限量，立即申请</a>
+          <a id="apply" href="javascript:;" class="btn" v-bind:style="{background: buttonStyle.buttonColor}">{{buttonFont}}</a>
       </div>
       <p class="activity-tips">本次活动由中国联通主办，活动名额有限，敬请谅解。</p>
   </section>
@@ -62,6 +62,12 @@
       },
       topImageUrl () {
         return this.$store.state.topImageUrl;
+      },
+      buttonFont () {
+        return this.$store.state.button_font;
+      },
+      buttonStyle () {
+        return this.$store.state.buttonStyle;
       },
       pageSwitchtitle01 () {
         return this.$store.state.switch_title01;

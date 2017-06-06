@@ -1,5 +1,5 @@
 <template id="pageTitle">
-  <div>{{pageTitle}}</div>
+  <span class="page-title" >{{pageTitle}}</span>
 </template>
 
 
@@ -21,5 +21,10 @@
 </script>
 
 <style lang="scss" scoped>
-
+  .page-title{
+    display: inline-block;
+    position: relative;
+    top:5px;
+    margin-right:15px;
+  }
 </style>
