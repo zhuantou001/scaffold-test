@@ -22,6 +22,7 @@
           <setpageTitle></setpageTitle>
           <setTopImg></setTopImg>
           <setSwitch></setSwitch>
+          <setdetailImg></setdetailImg>
         </div>
       </div>
     </div>
@@ -31,6 +32,7 @@
   import setpageTitle from './set/pageTitle';
   import setTopImg from './set/setTopImg';
   import setSwitch from './set/switch';
+  import setdetailImg from './set/detailImg';
   import templateLandingPage from './template/template';
   import './web.scss';
   export default {
@@ -49,6 +51,7 @@
       setpageTitle,
       setTopImg,
       setSwitch,
+      setdetailImg,
       templateLandingPage
     }
   };
