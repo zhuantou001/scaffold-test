@@ -40,23 +40,33 @@
         switch_title01: '',
         switch_title02: '',
         switch_content01: '',
-        switch_content02: ''
+        switch_content02: '',
+        switch_object: {
+          switch_title01: '选项卡标题01',
+          switch_title02: '选项卡标题02',
+          switch_content01: '选项卡内容01',
+          switch_content02: '选项卡内容02'
+        }
       };
     },
     methods: {
     },
     watch: {
       switch_title01: function () {
-        this.$store.commit('newSwitchTitle01', this.switch_title01);
+        this.switch_object.switch_title01 = this.switch_title01;
+        this.$store.commit('newSwitchObject', this.switch_object);
       },
       switch_title02: function () {
-        this.$store.commit('newSwitchTitle02', this.switch_title02);
+        this.switch_object.switch_title02 = this.switch_title02;
+        this.$store.commit('newSwitchObject', this.switch_object);
       },
       switch_content01: function () {
-        this.$store.commit('newSwitchContent01', this.switch_content01);
+        this.switch_object.switch_content01 = this.switch_content01;
+        this.$store.commit('newSwitchObject', this.switch_object);
       },
       switch_content02: function () {
-        this.$store.commit('newSwitchContent02', this.switch_content02);
+        this.switch_object.switch_content02 = this.switch_content02;
+        this.$store.commit('newSwitchObject', this.switch_object);
       }
     },
     components: {

@@ -12,19 +12,22 @@ const store = new Vuex.Store({
     page_url: 'eg:tencent',
     /* 头图图片地址 */
     topImageUrl: '',
-    /* 页面按钮文字 */
-    button_font: '按钮标题',
-    /* 页面按钮颜色 */
-    buttonStyle: {buttonColor: '#4ca9d4'},
-    switch_title01: '选项卡标题01',
-    switch_title02: '选项卡标题02',
-    switch_content01: '选项卡内容01',
-    switch_content02: '选项卡内容02',
+    /* 页面按钮文字、颜色 */
+    button_object: {buttonFont: '按钮标题', buttonColor: '#4ca9d4'},
+    /* 页面文本内容、颜色、段落、超链接 */
+    words_object: {wordsContent: '页面文本内容', wordsColor: '#4ca9d4', wordsPara: 'center', wordsUrl: ''},
+    /* 选项卡 */
+    switch_object: {
+      switch_title01: '选项卡标题01',
+      switch_title02: '选项卡标题02',
+      switch_content01: '选项卡内容01',
+      switch_content02: '选项卡内容02'
+    },
     /* 详情图片数组 */
     detailImgFileList: [],
     /* 右侧组件显示数组 默认标题组件永远显示 */
     setComponentsItems: [{'component': 'setPageTitle', 'index': 0}],
-    /* 右侧组件显示数组 默认标题组件永远显示 */
+    /* 右侧组件显示数组 */
     getComponentsItems: []
   },
   mutations: {
@@ -40,29 +43,17 @@ const store = new Vuex.Store({
     newTopImageUrl (state, msg) {
       state.topImageUrl = msg;
     },
-    /* 页面按钮文字 */
-    newPagebuttonFont (state, msg) {
-      state.button_font = msg;
+    /* 页面按钮文字、颜色 */
+    newPagebuttonObject (state, msg) {
+      state.button_object = msg;
     },
-    /* 页面按钮颜色 */
-    newPagebuttonColor (state, msg) {
-      state.buttonStyle = msg;
+    /* 页面文本内容、颜色、段落、超链接 */
+    newWordsObject (state, msg) {
+      state.words_object = msg;
     },
-    /* 选项卡标题1 */
-    newSwitchTitle01 (state, msg) {
-      state.switch_title01 = msg;
-    },
-    /* 选项卡标题2 */
-    newSwitchTitle02 (state, msg) {
-      state.switch_title02 = msg;
-    },
-    /* 选项卡内容1 */
-    newSwitchContent01 (state, msg) {
-      state.switch_content01 = msg;
-    },
-    /* 选项卡内容2 */
-    newSwitchContent02 (state, msg) {
-      state.switch_content02 = msg;
+    /* 选项卡 */
+    newSwitchObject (state, msg) {
+      state.switch_object = msg;
     },
     /* 图片详情arr */
     newDetailImgFileList (state, msg) {

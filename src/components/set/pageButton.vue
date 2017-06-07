@@ -19,19 +19,18 @@
     data () {
       return {
         button_font: '',
-        button_color: '#4ca9d4'
+        button_color: '#4ca9d4',
+        button_object: {buttonFont: '按钮文字', buttonColor: '#4ca9d4'}
       };
     },
     watch: {
       button_font: function () {
-        this.$store.commit('newPagebuttonFont', this.button_font);
+        this.button_object.buttonFont = this.button_font;
+        this.$store.commit('newPagebuttonObject', this.button_object);
       },
       button_color: function () {
-        let buttonStyle = {
-          buttonColor: this.button_color
-        };
-        // alert(JSON.stringify(buttonStyle));
-        this.$store.commit('newPagebuttonColor', buttonStyle);
+        this.button_object.buttonColor = this.button_color;
+        this.$store.commit('newPagebuttonObject', this.button_object);
       }
     }
   };

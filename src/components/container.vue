@@ -21,6 +21,7 @@
 <script>
   import topAddButton from './common/topAddButton';
   import setPageTitle from './set/pageTitle';
+  import setPageWords from './set/pageWords';
   import setTopImg from './set/topImage';
   import setSwitch from './set/switch';
   import setPageButton from './set/pageButton';
@@ -40,6 +41,7 @@
     components: {
       topAddButton,
       setPageTitle,
+      setPageWords,
       setTopImg,
       setSwitch,
       setPageButton,

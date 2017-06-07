@@ -1,6 +1,6 @@
-<template id="pageTitle">
+<template id="pageButton">
   <div class="btn-box">
-    <a id="apply" href="javascript:;" class="btn" v-bind:style="{background: buttonStyle.buttonColor}">{{buttonFont}}</a>
+    <a href="javascript:;" class="btn" v-bind:style="{background: buttonColor}">{{buttonFont}}</a>
   </div>
 </template>
 
@@ -16,10 +16,10 @@
     },
     computed: {
       buttonFont () {
-        return this.$store.state.button_font;
+        return this.$store.state.button_object.buttonFont;
       },
-      buttonStyle () {
-        return this.$store.state.buttonStyle;
+      buttonColor () {
+        return this.$store.state.button_object.buttonColor;
       }
     }
   };

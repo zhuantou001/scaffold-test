@@ -35,16 +35,16 @@
     },
     computed: {
       pageSwitchtitle01 () {
-        return this.$store.state.switch_title01;
+        return this.$store.state.switch_object.switch_title01;
       },
       pageSwitchtitle02 () {
-        return this.$store.state.switch_title02;
+        return this.$store.state.switch_object.switch_title02;
       },
       pageSwitchContent01 () {
-        return this.$store.state.switch_content01;
+        return this.$store.state.switch_object.switch_content01;
       },
       pageSwitchContent02 () {
-        return this.$store.state.switch_content02;
+        return this.$store.state.switch_object.switch_content02;
       }
     }
   };

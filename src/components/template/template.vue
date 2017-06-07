@@ -35,6 +35,7 @@
   import getTopImage from '../get/topImage';
   import getSwitch from '../get/switch';
   import getPageButton from '../get/pageButton';
+  import getPageWords from '../get/pageWords';
   import getDetailImage from '../get/detailImage';
   import './index.scss';
   export default {
@@ -57,6 +58,7 @@
       getTopImage,
       getSwitch,
       getPageButton,
+      getPageWords,
       getDetailImage
     }
   };
