@@ -31,7 +31,7 @@
     },
     methods: {
       handleRemove (file, fileList) {
-        alert(JSON.stringify(file));
+        // alert(JSON.stringify(file));
         console.log(file, fileList);
         let i;
         for (i in this.detailImgFileList) {

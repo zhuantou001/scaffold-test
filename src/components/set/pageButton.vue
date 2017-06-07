@@ -1,4 +1,4 @@
-<template id="addButton">
+<template id="pageButton">
   <div class="assembly">
     <h3><i class="el-icon-edit"></i> 添加按钮</h3>
     <el-row :gutter="20">
@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: 'addButton',
+    name: 'pageButton',
     data () {
       return {
         button_font: '',
@@ -24,14 +24,14 @@
     },
     watch: {
       button_font: function () {
-        this.$store.commit('newAddbuttonFont', this.button_font);
+        this.$store.commit('newPagebuttonFont', this.button_font);
       },
       button_color: function () {
         let buttonStyle = {
           buttonColor: this.button_color
         };
         // alert(JSON.stringify(buttonStyle));
-        this.$store.commit('newAddbuttonColor', buttonStyle);
+        this.$store.commit('newPagebuttonColor', buttonStyle);
       }
     }
   };

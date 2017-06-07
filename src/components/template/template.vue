@@ -10,38 +10,32 @@
   </head>
   <body class="grey">
   <section class="top-img">
-      <img :src="topImageUrl" alt="king" onerror="" title="请上传头图" >
+    <getTopImage></getTopImage>
   </section>
   <section class="apply">
-      <div class="switch-area">
-          <ul class="switch cf">
-              <li class="left checked" data-type="0"><a href="javascript:;"><span>{{pageSwitchtitle01}}</span></a></li>
-              <li class="right" data-type="1"><a href="javascript:;"><span>{{pageSwitchtitle02}}</span></a></li>
-          </ul>
-          <div class="charge-desc">
-              <p id="fee0" class="fee">{{pageSwitchContent01}}</p>
-              <p id="fee1" class="fee fee-small" hidden>{{pageSwitchContent02}}</p>
-          </div>
-      </div>
-      <p class="go-detail">
-          <span class="range-tips">*点击查看<a href="http://wk.75510010.com/KCard/page/my_tequan/tq_tengxun_desc.html">"腾讯应用专属流量范围"</a>”</span>
-          <a  class="detail" href="#go-fee">查看资费详情</a>
-      </p>
-      <div class="btn-box">
-          <a id="apply" href="javascript:;" class="btn" v-bind:style="{background: buttonStyle.buttonColor}">{{buttonFont}}</a>
-      </div>
-      <p class="activity-tips">本次活动由中国联通主办，活动名额有限，敬请谅解。</p>
+     <div :is="item.component" v-for="item in getComponentsItems"></div>
+      <!--<p class="go-detail">-->
+          <!--<span class="range-tips">*点击查看<a href="http://wk.75510010.com/KCard/page/my_tequan/tq_tengxun_desc.html">"腾讯应用专属流量范围"</a>”</span>-->
+          <!--<a  class="detail" href="#go-fee">查看资费详情</a>-->
+      <!--</p>-->
+      <!--<getPageButton></getPageButton>-->
+      <!--<div class="btn-box">-->
+          <!--<a id="apply" href="javascript:;" class="btn" v-bind:style="{background: buttonStyle.buttonColor}">{{buttonFont}}</a>-->
+      <!--</div>-->
+      <!--<p class="activity-tips">本次活动由中国联通主办，活动名额有限，敬请谅解。</p>-->
   </section>
   <section class="charges-info mt-10">
-    <li v-for="item in detailImgFileList">
-      <img :src="item.url">
-    </li>
+    <getDetailImage></getDetailImage>
   </section>
   </body>
   </html>
 </template>
 
 <script>
+  import getTopImage from '../get/topImage';
+  import getSwitch from '../get/switch';
+  import getPageButton from '../get/pageButton';
+  import getDetailImage from '../get/detailImage';
   import './index.scss';
   export default {
     name: 'templateLandingPage',
@@ -50,40 +44,20 @@
       };
     },
     methods: {
-      nofind: function (url) {
-        let img = event.srcElement;
-        img.src = url;
-        img.onerror = null;
-      }
     },
     computed: {
       pageTitle () {
         return this.$store.state.page_title;
       },
-      topImageUrl () {
-        return this.$store.state.topImageUrl;
-      },
-      buttonFont () {
-        return this.$store.state.button_font;
-      },
-      buttonStyle () {
-        return this.$store.state.buttonStyle;
-      },
-      pageSwitchtitle01 () {
-        return this.$store.state.switch_title01;
-      },
-      pageSwitchtitle02 () {
-        return this.$store.state.switch_title02;
-      },
-      pageSwitchContent01 () {
-        return this.$store.state.switch_content01;
-      },
-      pageSwitchContent02 () {
-        return this.$store.state.switch_content02;
-      },
-      detailImgFileList () {
-        return this.$store.state.detailImgFileList;
+      getComponentsItems () {
+        return this.$store.state.getComponentsItems;
       }
+    },
+    components: {
+      getTopImage,
+      getSwitch,
+      getPageButton,
+      getDetailImage
     }
   };
 </script>

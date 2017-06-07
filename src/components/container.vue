@@ -7,55 +7,49 @@
               <templateLandingPage></templateLandingPage>
             </div>
           </div>
-          <!--<div class="operation">-->
-            <!--<div class="block">-->
-              <!--<el-button type="success" @click="onSubmit">保存</el-button>-->
-            <!--</div>-->
-            <!--<div class="block">-->
-              <!--<el-button type="warning">导出</el-button>-->
-            <!--</div>-->
-          <!--</div>-->
         </div>
       </div>
       <div class="right">
         <div class="right-space">
-          <setpageTitle></setpageTitle>
-          <setTopImg></setTopImg>
-          <setSwitch></setSwitch>
-          <setButton></setButton>
-          <setdetailImg></setdetailImg>
+          <topAddButton></topAddButton>
+          <div :is="item.component" v-for="item in setComponentsItems"></div>
         </div>
       </div>
     </div>
 </template>
 
 <script>
-  import setpageTitle from './set/pageTitle';
-  import setTopImg from './set/setTopImg';
+  import topAddButton from './common/topAddButton';
+  import setPageTitle from './set/pageTitle';
+  import setTopImg from './set/topImage';
   import setSwitch from './set/switch';
-  import setButton from './set/addButton';
-  import setdetailImg from './set/detailImg';
+  import setPageButton from './set/pageButton';
+  import setDetailImg from './set/detailImage';
   import templateLandingPage from './template/template';
   import './web.scss';
   export default {
     name: 'container',
     data () {
       return {
-
       };
     },
     methods: {
       onSubmit: function () {
-
       }
     },
     components: {
-      setpageTitle,
+      topAddButton,
+      setPageTitle,
       setTopImg,
       setSwitch,
-      setButton,
-      setdetailImg,
+      setPageButton,
+      setDetailImg,
       templateLandingPage
+    },
+    computed: {
+      setComponentsItems () {
+        return this.$store.state.setComponentsItems;
+      }
     }
   };
 </script>

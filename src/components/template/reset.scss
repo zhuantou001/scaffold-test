@@ -89,7 +89,7 @@ td, th { padding: 0; }
 button,input,textarea,select {
   outline: none;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-user-modify:read-write-plaintext-only;
+ /* -webkit-user-modify:read-write-plaintext-only; */
   -webkit-appearance: none;
   -moz-appearance: none;
   &::-moz-focus-inner {
