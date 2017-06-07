@@ -1,5 +1,5 @@
 <template id="switch">
-  <div>
+  <div class="switch-box">
     <div class="switch-area">
       <ul class="switch cf">
         <li class="switch-tab left checked" data-type="0"><a href="javascript:;"><span>{{pageSwitchtitle01}}</span></a></li>
@@ -52,5 +52,7 @@
 </script>
 
 <style>
-
+  .switch-box{
+    margin:15px 0;
+  }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="assembly">
-    <h3><i class="el-icon-setting"></i> 选择需要的组件</h3>
+    <h3><i class="el-icon-setting"></i> 选择需要的组件<span>(目前每个组件只能选择一次)</span></h3>
     <el-button type="primary" @click="addComponents('setTopImg',1)" icon="picture">添加头图</el-button>
     <el-button type="primary" @click="addComponents('setSwitch',2,'getSwitch')" icon="document">添加选项卡</el-button>
     <el-button type="primary" @click="addComponents('setPageButton',3,'getPageButton')" icon="menu">添加按钮</el-button>
@@ -77,3 +77,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  h3>span{
+    font-size: 16px;
+    font-weight: normal;
+    color:#0b97c4;
+  }
+</style>

@@ -26,5 +26,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+  .btn-box{
+    margin:15px 0;
+  }
 </style>
