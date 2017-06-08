@@ -1,7 +1,7 @@
 <template id="pageWords">
   <div class="page-words">
     <div v-bind:style="{'text-align': pageWordsStylePara}">
-      <a v-bind:href="pageWordsStyleUrl" v-bind:style="{'color': pageWordsStyleColor}">{{pageWordsContent}}</a>
+      <span v-bind:style="{'color': pageWordsStyleColor}">{{pageWordsContent}}</span>
     </div>
   </div>
 </template>
@@ -25,9 +25,6 @@
       },
       pageWordsStylePara () {
         return this.$store.state.words_object.wordsPara;
-      },
-      pageWordsStyleUrl () {
-        return this.$store.state.words_object.wordsUrl;
       }
     }
   };

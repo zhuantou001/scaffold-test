@@ -1,6 +1,9 @@
 <template id="topImg">
   <div class="assembly">
-    <h3><i class="el-icon-edit"></i> 上传头图</h3>
+    <h3>
+      <i class="el-icon-edit"></i> 上传头图
+      <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
+    </h3>
     <el-row :gutter="20">
       <el-col :span="6"><label>上传头图</label></el-col>
       <el-col :span="18">
@@ -11,7 +14,7 @@
           :on-success="handleAvatarSuccess"
           :on-change="ObtainImgUrl"
           :before-upload="beforeAvatarUpload">
-          <img v-if="topImageUrl" :src="topImageUrl" class="avatar">
+          <img v-if="topImgUrl" :src="topImgUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-col>
@@ -21,20 +24,23 @@
 
 
 <script>
+  import deleteComponent from '../common/common';
   export default {
     name: 'topImg',
     data () {
       return {
-        topImageUrl: ''
+        index: 1,
+        topImgUrl: '',
+        topImgShow: true
       };
     },
     methods: {
       handleAvatarSuccess (res, file) {
-        this.topImageUrl = URL.createObjectURL(file.raw);
+        this.topImgUrl = URL.createObjectURL(file.raw);
       },
       ObtainImgUrl (file, fileList) {
         if (file.status === 'ready') {
-          this.topImageUrl = URL.createObjectURL(file.raw);
+          this.topImgUrl = URL.createObjectURL(file.raw);
           console.log(JSON.stringify(file));
         }
       },
@@ -50,12 +56,28 @@
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;
+      },
+      deleteFun () {
+        this.topImgShow = false;
+        this.$store.commit('newTopImgShow', this.topImgShow);
+        this.deleteComponent(this.setComponentsItems, '', this.index);
       }
     },
     watch: {
-      topImageUrl: function () {
-        this.$store.commit('newTopImageUrl', this.topImageUrl);
+      topImgUrl: function () {
+        this.$store.commit('newTopImgUrl', this.topImgUrl);
+      },
+      topImgShow: function () {
+        this.$store.commit('newTopImgShow', this.topImgShow);
       }
+    },
+    computed: {
+      setComponentsItems () {
+        return this.$store.state.setComponentsItems;
+      }
+    },
+    component: {
+      deleteComponent
     }
   };
 

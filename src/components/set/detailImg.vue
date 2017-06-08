@@ -1,6 +1,9 @@
 <template id="detailImg">
   <div class="assembly">
-    <h3><i class="el-icon-edit"></i> 详情图</h3>
+    <h3>
+      <i class="el-icon-edit"></i> 详情图
+      <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
+    </h3>
     <el-row :gutter="20">
       <el-col :span="6"><label>上传详情图</label></el-col>
       <el-col :span="18">
@@ -22,11 +25,14 @@
 
 
 <script>
+  import deleteComponent from '../common/common';
   export default {
     name: 'detailImg',
     data () {
       return {
-        detailImgFileList: []
+        index: 6,
+        detailImgFileList: [],
+        detailImgShow: true
       };
     },
     methods: {
@@ -52,12 +58,30 @@
         fileData.url = file.url;
         this.detailImgFileList.push(fileData);
         console.log(JSON.stringify(fileList));
+      },
+      deleteFun () {
+        // 删除预览详情图
+        this.detailImgShow = false;
+        this.$store.commit('newDetailImgShow', this.detailImgShow);
+        // 删除设置详情图
+        this.deleteComponent(this.setComponentsItems, '', this.index);
       }
     },
     watch: {
       detailImgFileList: function () {
         this.$store.commit('newDetailImgFileList', this.detailImgFileList);
+      },
+      detailImgShow: function () {
+        this.$store.commit('newDetailImgShow', this.detailImgShow);
       }
+    },
+    computed: {
+      setComponentsItems () {
+        return this.$store.state.setComponentsItems;
+      }
+    },
+    component: {
+      deleteComponent
     }
   };
 

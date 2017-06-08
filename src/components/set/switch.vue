@@ -1,6 +1,9 @@
 <template id="switch">
   <div class="assembly">
-    <h3><i class="el-icon-edit"></i> 添加选项卡(两个选项卡)</h3>
+    <h3>
+      <i class="el-icon-edit"></i> 添加选项卡(两个选项卡)
+      <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
+    </h3>
     <el-row :gutter="20">
       <el-col :span="6"><label>选项卡title01</label></el-col>
       <el-col :span="18"><el-input v-model="switch_title01" placeholder="请输入内容"></el-input></el-col>
@@ -32,11 +35,13 @@
 
 <script>
   import textEditor from '../common/textEditor';
+  import deleteComponent from '../common/common';
 
   export default {
     name: 'switch',
     data () {
       return {
+        index: 2,
         switch_title01: '',
         switch_title02: '',
         switch_content01: '',
@@ -50,6 +55,9 @@
       };
     },
     methods: {
+      deleteFun () {
+        this.deleteComponent(this.setComponentsItems, this.getComponentsItems, this.index);
+      }
     },
     watch: {
       switch_title01: function () {
@@ -69,8 +77,17 @@
         this.$store.commit('newSwitchObject', this.switch_object);
       }
     },
+    computed: {
+      setComponentsItems () {
+        return this.$store.state.setComponentsItems;
+      },
+      getComponentsItems () {
+        return this.$store.state.getComponentsItems;
+      }
+    },
     components: {
-      textEditor
+      textEditor,
+      deleteComponent
     }
   };
 </script>

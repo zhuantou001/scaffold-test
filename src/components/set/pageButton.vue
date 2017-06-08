@@ -1,6 +1,9 @@
 <template id="pageButton">
   <div class="assembly">
-    <h3><i class="el-icon-edit"></i> 添加按钮</h3>
+    <h3>
+      <i class="el-icon-edit"></i> 添加按钮
+      <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
+    </h3>
     <el-row :gutter="20">
       <el-col :span="6"><label>按钮文字</label></el-col>
       <el-col :span="18"><el-input v-model="button_font" placeholder="请输入按钮文字"></el-input></el-col>
@@ -14,14 +17,21 @@
 
 
 <script>
+  import deleteComponent from '../common/common';
   export default {
     name: 'pageButton',
     data () {
       return {
+        index: 3,
         button_font: '',
         button_color: '#4ca9d4',
         button_object: {buttonFont: '按钮文字', buttonColor: '#4ca9d4'}
       };
+    },
+    methods: {
+      deleteFun () {
+        this.deleteComponent(this.setComponentsItems, this.getComponentsItems, this.index);
+      }
     },
     watch: {
       button_font: function () {
@@ -32,6 +42,17 @@
         this.button_object.buttonColor = this.button_color;
         this.$store.commit('newPagebuttonObject', this.button_object);
       }
+    },
+    computed: {
+      setComponentsItems () {
+        return this.$store.state.setComponentsItems;
+      },
+      getComponentsItems () {
+        return this.$store.state.getComponentsItems;
+      }
+    },
+    component: {
+      deleteComponent
     }
   };
 </script>

@@ -22,10 +22,11 @@
   import topAddButton from './common/topAddButton';
   import setPageTitle from './set/pageTitle';
   import setPageWords from './set/pageWords';
-  import setTopImg from './set/topImage';
+  import setPageWordsUrl from './set/pageWordsUrl';
+  import setTopImg from './set/topImg';
   import setSwitch from './set/switch';
   import setPageButton from './set/pageButton';
-  import setDetailImg from './set/detailImage';
+  import setDetailImg from './set/detailImg';
   import templateLandingPage from './template/template';
   import './web.scss';
   export default {
@@ -42,6 +43,7 @@
       topAddButton,
       setPageTitle,
       setPageWords,
+      setPageWordsUrl,
       setTopImg,
       setSwitch,
       setPageButton,
