@@ -49,10 +49,12 @@
           /* 头图和详情图单独处理 */
           if (getcomponent === 'getTopImg') {
             this.topImgShow = true;
+            this.$store.commit('newTopImgShow', this.topImgShow);
             return false;
           }
           if (getcomponent === 'getDetailImg') {
             this.detailImgShow = true;
+            this.$store.commit('newDetailImgShow', this.detailImgShow);
             return false;
           }
           if (this.getComponentsItems.length) {
