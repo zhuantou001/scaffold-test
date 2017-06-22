@@ -16,10 +16,10 @@
     },
     computed: {
       buttonFont () {
-        return this.$store.state.button_object.buttonFont;
+        return this.$store.state.button.buttonObject.buttonFont;
       },
       buttonColor () {
-        return this.$store.state.button_object.buttonColor;
+        return this.$store.state.button.buttonObject.buttonColor;
       }
     }
   };

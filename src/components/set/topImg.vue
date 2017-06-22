@@ -31,7 +31,9 @@
       return {
         index: 1,
         topImgUrl: '',
-        topImgShow: true
+        topImgShow: true,
+        topImgFile: '',
+        currFile: ''// 获取元素input[file]的file,用于图片压缩readAsDataURL
       };
     },
     methods: {
@@ -41,7 +43,8 @@
       ObtainImgUrl (file, fileList) {
         if (file.status === 'ready') {
           this.topImgUrl = URL.createObjectURL(file.raw);
-          console.log(JSON.stringify(file));
+          // console.log(JSON.stringify(file));
+          this.currFile = file.raw;
         }
       },
       beforeAvatarUpload (file) {
@@ -65,7 +68,7 @@
     },
     watch: {
       topImgUrl: function () {
-        this.$store.commit('newTopImgUrl', this.topImgUrl);
+        this.$store.commit('newTopImgUrl', this.currFile);
       },
       topImgShow: function () {
         this.$store.commit('newTopImgShow', this.topImgShow);
@@ -73,7 +76,7 @@
     },
     computed: {
       setComponentsItems () {
-        return this.$store.state.setComponentsItems;
+        return this.$store.state.app.setComponentsItems;
       }
     },
     component: {
@@ -99,7 +102,7 @@
     color: #8c939d;
     width: 200px;
     height: 150px;
-    line-height: 150px;
+    line-height: 150px !important;
     text-align: center;
   }
   .avatar {

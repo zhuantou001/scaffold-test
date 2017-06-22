@@ -18,16 +18,16 @@
     },
     computed: {
       pageWordsContent () {
-        return this.$store.state.words_url_object.wordsContent;
+        return this.$store.state.button.descLinkObject.wordsContent;
       },
       pageWordsStyleColor () {
-        return this.$store.state.words_url_object.wordsColor;
+        return this.$store.state.button.descLinkObject.wordsColor;
       },
       pageWordsStylePara () {
-        return this.$store.state.words_url_object.wordsPara;
+        return this.$store.state.button.descLinkObject.wordsPara;
       },
       pageWordsStyleUrl () {
-        return this.$store.state.words_url_object.wordsUrl;
+        return this.$store.state.button.descLinkObject.wordsUrl;
       }
     }
   };

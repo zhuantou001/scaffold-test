@@ -82,10 +82,10 @@
     },
     computed: {
       setComponentsItems () {
-        return this.$store.state.setComponentsItems;
+        return this.$store.state.app.setComponentsItems;
       },
       getComponentsItems () {
-        return this.$store.state.getComponentsItems;
+        return this.$store.state.app.getComponentsItems;
       }
     },
     component: {

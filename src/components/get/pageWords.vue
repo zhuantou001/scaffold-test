@@ -1,7 +1,7 @@
 <template id="pageWords">
   <div class="page-words">
-    <div v-bind:style="{'text-align': pageWordsStylePara}">
-      <span v-bind:style="{'color': pageWordsStyleColor}">{{pageWordsContent}}</span>
+    <div :style="{'text-align': pageWordsStylePara}">
+      <span :style="{'color': pageWordsStyleColor}">{{pageWordsContent}}</span>
     </div>
   </div>
 </template>
@@ -18,13 +18,13 @@
     },
     computed: {
       pageWordsContent () {
-        return this.$store.state.words_object.wordsContent;
+        return this.$store.state.button.wordsObject.wordsContent;
       },
       pageWordsStyleColor () {
-        return this.$store.state.words_object.wordsColor;
+        return this.$store.state.button.wordsObject.wordsColor;
       },
       pageWordsStylePara () {
-        return this.$store.state.words_object.wordsPara;
+        return this.$store.state.button.wordsObject.wordsPara;
       }
     }
   };

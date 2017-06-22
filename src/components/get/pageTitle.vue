@@ -17,10 +17,10 @@
     },
     computed: {
       pageTitle () {
-        return this.$store.state.page_title;
+        return this.$store.state.topImg.pageTitle;
       },
       pageUrl () {
-        return this.$store.state.page_url;
+        return this.$store.state.topImg.pageUrl;
       }
     }
   };

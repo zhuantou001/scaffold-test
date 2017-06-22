@@ -2,7 +2,7 @@
   <div class="assembly">
     <h3><i class="el-icon-setting"></i> 选择需要的组件<span>(目前每个组件只能选择一次)</span></h3>
     <el-button type="primary" @click="addComponents('setTopImg',1,'getTopImg')" icon="picture">添加头图</el-button>
-    <el-button type="primary" @click="addComponents('setSwitch',2,'getSwitch')" icon="document">添加选项卡</el-button>
+    <el-button type="primary" @click="addComponents('setSwitch',2,'getSwitch');" icon="document">添加选项卡</el-button>
     <el-button type="primary" @click="addComponents('setPageButton',3,'getPageButton')" icon="menu">添加按钮</el-button>
     <el-button type="primary" @click="addComponents('setPageWords',4,'getPageWords')" icon="edit">添加文字</el-button>
     <el-button type="primary" @click="addComponents('setPageWordsUrl',5,'getPageWordsUrl')" icon="edit">添加超文本文字</el-button>

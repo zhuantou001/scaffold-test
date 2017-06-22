@@ -31,6 +31,8 @@
     methods: {
       deleteFun () {
         this.deleteComponent(this.setComponentsItems, this.getComponentsItems, this.index);
+        this.button_font = '';
+        this.button_color = '#4ca9d4';
       }
     },
     watch: {
@@ -45,10 +47,10 @@
     },
     computed: {
       setComponentsItems () {
-        return this.$store.state.setComponentsItems;
+        return this.$store.state.app.setComponentsItems;
       },
       getComponentsItems () {
-        return this.$store.state.getComponentsItems;
+        return this.$store.state.app.getComponentsItems;
       }
     },
     component: {

@@ -43,16 +43,16 @@
     },
     computed: {
       topImgShow () {
-        return this.$store.state.topImgShow;
+        return this.$store.state.topImg.topImgShow;
       },
       detailImgShow () {
-        return this.$store.state.detailImgShow;
+        return this.$store.state.detailImg.detailImgShow;
       },
       pageTitle () {
-        return this.$store.state.page_title;
+        return this.$store.state.topImg.pageTitle;
       },
       getComponentsItems () {
-        return this.$store.state.getComponentsItems;
+        return this.$store.state.app.getComponentsItems;
       }
     },
     components: {

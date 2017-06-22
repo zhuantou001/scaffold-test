@@ -1,6 +1,6 @@
 <template id="detailImg">
   <div>
-    <div class="replace-img" v-bind:class="{'show':isShow,'hide':!isShow}"><span>请上传详情图</span></div>
+    <div class="replace-img" :class="{'show':isShow,'hide':!isShow}"><span>请上传详情图</span></div>
     <li v-for="item in detailImgFileList">
       <img :src="item.url">
     </li>
@@ -29,7 +29,7 @@
     },
     computed: {
       detailImgFileList () {
-        return this.$store.state.detailImgFileList;
+        return this.$store.state.detailImg.detailImgFileList;
       }
     }
   };
