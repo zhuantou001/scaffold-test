@@ -1,0 +1,139 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0 auto;
+  /* 默认黑色编码 */
+  color: #636363;
+  overflow: auto;
+  position: relative;
+  background-color: #ffffff;
+}
+
+ul, ol, li, p {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+div {
+  display: block;
+  line-height: 1.75;
+}
+
+/* 用于清除手机上选中元素外发光边框 */
+*:focus {
+  outline: none;
+}
+
+/* 用于清除iPhone里textarea内阴影等默认样式 */
+textarea, input {
+  -webkit-appearance: none;
+  padding: 0;
+}
+
+/* 用于清除iPhone点击内容的默认着色样式 */
+div, a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.scaffold-fade-enter-active, .scaffold-fade-leave-active {
+  transition: opacity .3s ease;
+}
+
+.scaffold-fade-enter, .scaffold-fade-leave-active {
+  opacity: 0;
+}
+
+.scaffold-fade-mask-enter-active, .scaffold-fade-mask-leave-active {
+  transition: opacity .3s ease;
+}
+
+.scaffold-fade-mask-enter, .scaffold-fade-mask-leave-active {
+  opacity: 0.01;
+}
+
+.scaffold-route-text {
+  color: white;
+  text-decoration: none;
+}
+
+.scaffold-page {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scaffold-mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20000;
+  background-color: transparent;
+}
+
+.scaffold-mask-dark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20000;
+  background-color: black;
+  opacity: 0.5;
+}
+
+.scaffold-inactive {
+  background-color: #B7B7B7;
+}
+
+.scaffold-skin-green {
+  background-color: #4FB7AC;
+}
+
+.scaffold-no-decoration {
+  text-decoration: none;
+}
+
+.scaffold-font-jet-black {
+  color: #000000;
+}
+
+.scaffold-font-silver-gray {
+  color: #D6D6D6;
+}
+
+/*iPhone 4/5*/
+@media screen and (min-width: 320px) {
+  html {
+    font-size: 64px !important; /*no*/
+  }
+}
+
+/*iPhone 6/6s/7*/
+@media screen and (min-width: 375px) {
+  html {
+    font-size: 75px !important; /*no*/
+  }
+}
+
+/*iPhone 6p/6sp/7p*/
+@media screen and (min-width: 414px) {
+  html {
+    font-size: 124.2px !important; /*no*/
+  }
+}
+
