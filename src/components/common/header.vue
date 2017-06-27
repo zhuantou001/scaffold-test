@@ -6,6 +6,7 @@
       <el-menu-item index="2-1">落地页模板</el-menu-item>
       <el-menu-item index="2-2">填写页模板</el-menu-item>
     </el-submenu>
+    <el-menu-item index="3"><router-link to="/project">我的作品管理</router-link></el-menu-item>
     <span class="header-title">
        <getpageTitle></getpageTitle>
       <el-button type="success">保存</el-button>

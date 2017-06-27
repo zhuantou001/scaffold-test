@@ -8,11 +8,13 @@ import 'element-ui/lib/theme-default/index.css';
 import Vuex from 'vuex';
 import store from './vuex/store';
 import VueQuillEditor from 'vue-quill-editor';
+import axios from 'axios';
 
 Vue.use(Element);
 Vue.use(Vuex);
 Vue.use(VueQuillEditor);
 
+Vue.prototype.$ajax = axios;
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

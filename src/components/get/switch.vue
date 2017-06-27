@@ -17,7 +17,7 @@
 
 <script>
   import tabsL from './../tabImg/tabsL.vue';
-
+  import {mapState} from 'vuex';
   export default {
     name: 'switch',
     data () {
@@ -105,24 +105,14 @@
         }
         return items;
       },
-      pageSwitchtitle01 () {
-        return this.$store.state.options.options.switch_title01;
-      },
-      pageSwitchtitle02 () {
-        return this.$store.state.options.options.switch_title02;
-      },
-      pageSwitchtitle03 () {
-        return this.$store.state.options.options.switch_title03;
-      },
-      pageSwitchContent01 () {
-        return this.$store.state.options.options.switch_content01;
-      },
-      pageSwitchContent02 () {
-        return this.$store.state.options.options.switch_content02;
-      },
-      pageSwitchContent03 () {
-        return this.$store.state.options.options.switch_content03;
-      },
+      ...mapState({
+        pageSwitchtitle01: state => state.options.options.switch_title01,
+        pageSwitchtitle02: state => state.options.options.switch_title02,
+        pageSwitchtitle03: state => state.options.options.switch_title03,
+        pageSwitchContent01: state => state.options.options.switch_content01,
+        pageSwitchContent02: state => state.options.options.switch_content02,
+        pageSwitchContent03: state => state.options.options.switch_content03
+      }),
       colorStyle1 () {
         return this.setFontColor(this.isShow1);
       },
@@ -150,7 +140,6 @@
 </script>
 
 <style lang="scss">
-  $blue: #4ca9d4;
   .switch-box{
     margin:15px 0;
   }
@@ -191,7 +180,7 @@
           height: 22px;
           text-align: center;
           text-decoration: none;
-          canvas{
+          canvas {
             padding: 15px 0 5px 0;
             width: 33px;
             height: 22px;
@@ -209,7 +198,7 @@
            background-size:32px 20px;
            position: relative;
           span {
-            color: $blue;
+            color: #4ca9d4;
           }
           &::before {
              content: '';

@@ -27,6 +27,7 @@
   import setSwitch from './set/switch';
   import setPageButton from './set/pageButton';
   import setDetailImg from './set/detailImg';
+  import setApplyDownload from './set/applyDownload.vue';
   import templateLandingPage from './template/template';
   import './web.scss';
   export default {
@@ -48,6 +49,7 @@
       setSwitch,
       setPageButton,
       setDetailImg,
+      setApplyDownload,
       templateLandingPage
     },
     computed: {

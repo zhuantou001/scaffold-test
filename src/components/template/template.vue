@@ -29,6 +29,7 @@
   import getPageWords from '../get/pageWords';
   import getPageWordsUrl from '../get/pageWordsUrl';
   import getDetailImage from '../get/detailImg';
+  import getApplyDownload from '../get/applyDownload.vue';
   import './index.scss';
   export default {
     name: 'templateLandingPage',
@@ -61,7 +62,8 @@
       getPageButton,
       getPageWords,
       getPageWordsUrl,
-      getDetailImage
+      getDetailImage,
+      getApplyDownload
     }
   };
 </script>

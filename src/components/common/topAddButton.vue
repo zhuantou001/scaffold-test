@@ -7,6 +7,7 @@
     <el-button type="primary" @click="addComponents('setPageWords',4,'getPageWords')" icon="edit">添加文字</el-button>
     <el-button type="primary" @click="addComponents('setPageWordsUrl',5,'getPageWordsUrl')" icon="edit">添加超文本文字</el-button>
     <el-button type="primary" @click="addComponents('setDetailImg',6,'getDetailImg')" icon="picture">添加详情图</el-button>
+    <el-button type="primary" @click="addComponents('setApplyDownload',7,'getApplyDownload')" icon="menu">添加应用下载</el-button>
   </div>
 </template>
 

@@ -2,17 +2,24 @@
   <div class="home">
     <img src="../assets/logo.png">
     <h1>{{ msg }}</h1>
-    <router-link to="/scaffold">Go to SCAFFOLD</router-link>
+    <h3><login></login></h3>
+    <router-link to="/scaffold">新建落地页</router-link> |
+    <router-link to="/project">我的作品管理</router-link>
   </div>
 </template>
 
 <script>
+import login from './login/login';
+
 export default {
   name: 'home',
   data () {
     return {
       msg: 'Welcome to SCAFFOLD'
     };
+  },
+  components: {
+    login
   }
 };
 </script>

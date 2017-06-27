@@ -5,6 +5,7 @@ import topImg from './modules/topImg';
 import options from './modules/options';
 import button from './modules/button';
 import detailImg from './modules/detailImg';
+import applyDownload from './modules/applyDownload';
 import * as getters from './getters';
 import { actions } from './actions';
 
@@ -19,7 +20,8 @@ export default new Vuex.Store({
     topImg,
     options,
     button,
-    detailImg
+    detailImg,
+    applyDownload
   },
   strict: false
 });

@@ -14,19 +14,19 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="6"><label>SIM文字选中颜色A</label></el-col>
-        <el-col :span="18"><el-col :span="18"><el-input style="width:40%;" type="color" v-model="words_colorLA"></el-input></el-col></el-col>
+        <el-col :span="18"><el-input style="width:40%;" type="color" v-model="words_colorLA"></el-input></el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="6"><label>SIM选中颜色B</label></el-col>
-        <el-col :span="18"><el-col :span="18"><el-input style="width:40%;" type="color" v-model="words_colorLB"></el-input></el-col></el-col>
+        <el-col :span="18"><el-input style="width:40%;" type="color" v-model="words_colorLB"></el-input></el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="6"><label>SIM文字未选颜色A</label></el-col>
-        <el-col :span="18"><el-col :span="18"><el-input style="width:40%;" type="color" v-model="words_colorRA"></el-input></el-col></el-col>
+        <el-col :span="18"><el-input style="width:40%;" type="color" v-model="words_colorRA"></el-input></el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="6"><label>SIM未选颜色B</label></el-col>
-        <el-col :span="18"><el-col :span="18"><el-input style="width:40%;" type="color" v-model="words_colorRB"></el-input></el-col></el-col>
+        <el-col :span="18"><el-input style="width:40%;" type="color" v-model="words_colorRB"></el-input></el-col>
       </el-row>
     </div>
     <div v-for="item in tabItems">
