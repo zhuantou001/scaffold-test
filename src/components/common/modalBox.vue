@@ -97,8 +97,8 @@
   .modal-body {padding: 2px 16px;}
 
   .modal-footer {
-    padding: 2px 16px;
-    text-align: right;
+    padding: 10px 16px;
+    text-align: center;
   }
 
 </style>

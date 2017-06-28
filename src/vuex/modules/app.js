@@ -2,6 +2,7 @@ import { SYNC_TOAST_STATE } from '../mutation-types';
 
 // init state
 const state = {
+  user: {},
   /* 右侧组件显示数组 默认标题组件永远显示 */
   setComponentsItems: [{'component': 'setPageTitle', 'index': 0}],
   /* 右侧组件显示数组 */
@@ -13,6 +14,10 @@ const state = {
 };
 
 const mutations = {
+  /* 用户信息 */
+  newUser (state, msg) {
+    state.user = msg;
+  },
   /* 右侧组件数组 */
   newSetComponentsItems (state, msg) {
     state.setComponentsItems = msg;

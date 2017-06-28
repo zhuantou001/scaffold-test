@@ -1,23 +1,15 @@
 import Mock from 'mockjs';
 
-export default Mock.mock('login', {
-
-  'users': [
-    {
-      'id': 1,
-      'username': 'aaa',
-      'password': 'aaa'
-    },
-    {
-      'id': 2,
-      'username': 'bbb',
-      'password': 'bbb'
-    },
-    {
-      'id': 3,
-      'username': 'ccc',
-      'password': 'ccc'
-    }
-  ]
-
+export default Mock.mock('login', 'post', function (options) {
+  let bodyData = JSON.parse(options.body);
+  let msg = {};
+  if (bodyData.username === 'admin' && bodyData.password === 'admin') {
+    msg.state = true;
+    msg.username = bodyData.username;
+    msg.id = 111;
+  } else {
+    msg.state = false;
+  }
+  return msg;
 });
+

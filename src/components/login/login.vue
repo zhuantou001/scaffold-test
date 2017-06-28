@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="login" @click="openModal">登录</div>
+  <span>
+    <span class="login" @click="openModal">登录</span>
     <modalBox v-if="showModal" @closeModal="showModal=false" :width="400">
       <div slot="header">登录</div>
       <div slot="body">
@@ -16,9 +16,11 @@
           </div>
         </form>
       </div>
-      <div slot="footer"></div>
+      <div slot="footer">
+        <span class="footer-tips">(提示:用户名:admin 密码:admin)</span>
+      </div>
     </modalBox>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -38,7 +40,17 @@
       openModal () {
         this.showModal = true;
       },
+      successMsg (msg) {
+        this.$message({
+          message: msg,
+          type: 'success'
+        });
+      },
+      failMsg (msg) {
+        this.$message.error(msg);
+      },
       submit () {
+        let self = this;
         this.$ajax({
           method: 'post',
           url: 'login',
@@ -46,6 +58,28 @@
             username: this.name,
             password: this.pwd
           }
+        }).then(function (res) {
+          if (res.data.state) {
+            self.successMsg('登录成功');
+            let object = {};
+            object.username = res.data.username;
+            object.id = res.data.id;
+            // 用户信息存入localStorage
+            localStorage.setItem('user', JSON.stringify(object));
+            // 用户信息存入store
+            self.$store.commit('newUser', object);
+            console.log(localStorage.getItem('user'));
+            // 关闭模态框
+            setTimeout(function () {
+              self.showModal = false;
+            }, 1500);
+          } else {
+            self.failMsg('用户名或密码错误');
+          }
+          console.log(res.data);
+        }).catch(function (err) {
+          console.log(err);
+          self.failMsg('服务器错误');
         });
       }
     },
@@ -59,6 +93,7 @@
 <style lang="scss" scoped>
   .login{
     cursor:pointer;
+    font-size: 20px;
     color:#0b97c4;
   }
   .loginForm{
@@ -72,6 +107,9 @@
       margin:20px auto;
       width:160px;
     }
+  }
+  .footer-tips{
+    font-size: 12px;
   }
 
 </style>
