@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import './components/common/style.scss';
-
 export default {
 
 };

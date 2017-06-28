@@ -12,11 +12,14 @@
       <el-button type="success">保存</el-button>
       <el-button type="warning">导出</el-button>
     </span>
+    <span class="userInfo"><userInfo></userInfo></span>
+
   </el-menu>
 </template>
 
 <script>
   import getpageTitle from '../get/pageTitle';
+  import userInfo from '../login/userInfo';
   export default {
     data: function () {
       return {
@@ -25,7 +28,30 @@
     methods: {
     },
     components: {
-      getpageTitle
+      getpageTitle,
+      userInfo
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  #vueHeader{
+    position: relative;
+  .header-title{
+    display: inline-block;
+    position: absolute;
+    right:100px;
+    top:10px;
+    font-size: 26px;
+  }
+  .userInfo{
+    display: inline-block;
+    position: absolute;
+    right:20px;
+    top:14px;
+  }
+  }
+  a{
+    text-decoration: none;
+  }
+</style>

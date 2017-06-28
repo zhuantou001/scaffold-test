@@ -59,3 +59,20 @@
     }
   };
 </script>
+<style lang="scss" scoped>
+  #container{
+    height: calc(100% - 60px);
+    display:flex;
+  &>.left {
+      flex:2;
+      overflow: hidden;
+      height: 100%;
+      border-right:1px solid #ddd;
+    }
+  &>.right {
+      flex:3;
+      overflow: hidden;
+      height: 100%;
+    }
+  }
+</style>

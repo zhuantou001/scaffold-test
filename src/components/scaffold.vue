@@ -24,3 +24,10 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  #scaffold{
+    height: 100vh;
+    flex: 1 auto;
+  }
+</style>
