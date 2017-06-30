@@ -1,7 +1,6 @@
 const state = {
-  /* 详情图片是否显示 true显示 false隐藏 */
   applyDownloadTitle: '腾讯应用下载',
-  /* 详情图片数组 */
+  /* 应用下载数组 */
   appliesList: []
 };
 /* {
@@ -11,11 +10,11 @@ const state = {
   appliesButtonText: '免流使用',
   appliesHref: 'www.10010.com'} */
 const mutations = {
-  /* 图片详情是否显示 true显示 false隐藏 */
+  /* 应用下载主标题 */
   newApplyDownloadTitle (state, msg) {
     state.applyDownloadTitle = msg;
   },
-  /* 图片详情arr */
+  /* 应用下载数组 */
   newApplies (state, msg) {
     state.appliesList = msg;
   }

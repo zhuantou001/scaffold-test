@@ -15,3 +15,11 @@ Vue.prototype.deleteComponent = function (setComponentsItems, getComponentsItems
     }
   }
 };
+
+Vue.prototype.failMsg = function (msg) {
+  this.$message({
+    showClose: true,
+    message: msg,
+    type: 'warning'
+  });
+};

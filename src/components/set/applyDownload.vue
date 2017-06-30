@@ -14,14 +14,16 @@
       <div style="border-bottom: 1px solid #ccc;" v-if="showList.length > 0">
         <p>已添加运用预览</p>
         <ul>
-          <el-row :gutter="20">
-            <el-col :span="3" class="flowHidden">序号</el-col>
-            <el-col :span="5" class="flowHidden">图片名称</el-col>
-            <el-col :span="4" class="flowHidden">应用标题</el-col>
-            <el-col :span="4" class="flowHidden">按钮标题</el-col>
-            <el-col :span="4" class="flowHidden">应用链接</el-col>
-            <el-col :span="4">操作</el-col>
-          </el-row>
+          <li>
+            <el-row :gutter="20">
+              <el-col :span="3" class="flowHidden">序号</el-col>
+              <el-col :span="5" class="flowHidden">图片名称</el-col>
+              <el-col :span="4" class="flowHidden">应用标题</el-col>
+              <el-col :span="4" class="flowHidden">按钮标题</el-col>
+              <el-col :span="4" class="flowHidden">应用链接</el-col>
+              <el-col :span="4">操作</el-col>
+            </el-row>
+          </li>
           <li v-for="(item, index) in showList">
             <el-row :gutter="20">
               <el-col :span="3" class="flowHidden">应用{{index + 1}}</el-col>
@@ -102,7 +104,8 @@
     name: 'detailImg',
     data () {
       return {
-        index: 6,
+        index: 7,
+        appliesShow: true,
         // appliesDetail: this.$store.state.applyDownload.applies,
         fileList: [],
         buttonShow: true,
@@ -297,11 +300,8 @@
         this.isError = false;
       },
       deleteFun () {
-        // 删除预览详情图
-        this.detailImgShow = false;
-        this.$store.commit('newDetailImgShow', this.detailImgShow);
-        // 删除设置详情图
-        this.deleteComponent(this.setComponentsItems, '', this.index);
+        // 删除应用下载
+        this.deleteComponent(this.setComponentsItems, this.getComponentsItems, this.index);
       }
     },
     watch: {
@@ -312,6 +312,9 @@
     computed: {
       setComponentsItems () {
         return this.$store.state.app.setComponentsItems;
+      },
+      getComponentsItems () {
+        return this.$store.state.app.getComponentsItems;
       }
     },
     component: {

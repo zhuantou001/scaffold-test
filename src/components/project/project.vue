@@ -3,9 +3,7 @@
     <div class="side"><sideMenu></sideMenu></div>
     <div class="content">
       <projectTitle></projectTitle>
-      <div class="container">
-        <projectContainer></projectContainer>
-      </div>
+      <projectContainer></projectContainer>
     </div>
   </div>
 </template>
@@ -35,14 +33,12 @@
   #project{
     display: flex;
     .side{
-      flex: 1 auto;
+      flex: 1 1 auto;
+      width:1%;
      }
     .content{
-      flex: 6 auto;
-      .container{
-        height: calc(100% - 50px);
-        background:#f5f7f9;
-      }
+      flex: 5 1 auto;
+      width:1%;
     }
   }
 

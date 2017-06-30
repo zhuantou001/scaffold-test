@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-export default Mock.mock('login', 'post', function (options) {
+let login = Mock.mock('login', 'post', function (options) {
   let bodyData = JSON.parse(options.body);
   let msg = {};
   if (bodyData.username === 'admin' && bodyData.password === 'admin') {
@@ -13,3 +13,6 @@ export default Mock.mock('login', 'post', function (options) {
   return msg;
 });
 
+export default {
+  login
+};
