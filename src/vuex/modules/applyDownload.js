@@ -1,5 +1,5 @@
 const state = {
-  applyDownloadTitle: '腾讯应用下载',
+  applyDownloadTitle: '应用下载',
   /* 应用下载数组 */
   appliesList: []
 };

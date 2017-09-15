@@ -1,12 +1,14 @@
 <template>
-  <transition name="scaffold-fade-mask" mode="out-in">
-    <div v-if="show" class="scaffold-mask">
-      <div class="scaffold-loading-hud">
-        <img class="ccs-loading" src="./loading-sunny.gif">
-        <p>{{label}}</p>
+  <span>
+    <transition name="scaffold-fade-mask" mode="out-in">
+      <div v-if="show" class="scaffold-mask">
+        <div class="scaffold-loading-hud">
+          <img class="ccs-loading" src="./loading-sunny.gif">
+          <p>{{label}}</p>
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </span>
 </template>
 
 <style>

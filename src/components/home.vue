@@ -7,7 +7,8 @@
     </section>
     <section v-show="isLogin">
       <h4>欢迎 {{loginMsg.username}}</h4>
-      <router-link to="/scaffold">新建落地页</router-link> |
+      <span @click="toScaffold('ground')" style="cursor:pointer;">新建落地页</span> |
+      <span @click="toScaffold('fill')" style="cursor:pointer;">新建填写页</span> |
       <router-link to="/project">我的作品管理</router-link>
     </section>
   </div>
@@ -15,6 +16,8 @@
 
 <script>
 import login from './login/login';
+import {resetVuex} from './common/common';
+import './common/reset.scss';
 
 export default {
   name: 'home',
@@ -25,6 +28,13 @@ export default {
     };
   },
   methods: {
+    toScaffold (style) {
+      // 清空
+      // alert(style);
+      localStorage.setItem('projectData', '');
+      this.resetVuex();
+      this.$router.push('/scaffold/' + style);
+    }
   },
   computed: {
     loginMsg () {
@@ -47,7 +57,8 @@ export default {
     }
   },
   components: {
-    login
+    login,
+    resetVuex
   }
 };
 </script>

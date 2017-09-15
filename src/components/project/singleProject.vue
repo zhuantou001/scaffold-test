@@ -1,24 +1,138 @@
 <template>
-  <div class="project-box">
-    <div class="project-box-con">
-      <img src="../template/images/king_map_top.png"/>
+  <div>
+    <div class="project-box" @click="previewPage">
+      <div class="project-box-con">
+        <div class="set" @click.stop="setUp"><i class="el-icon-more"></i></div>
+        <img :src="coverImg" @onerror="coverImg" ref="img"/>
+      </div>
+      <div class="project-box-title">{{name}}</div>
     </div>
-    <div class="project-box-title">{{name}}</div>
+
+    <modalMenu v-if="showModal" @closeModal="showModal=false" :width="260">
+      <div slot="body">
+        <div @click="previewPage">预览</div>
+        <!--<div><router-link :pageId="111" to="/scaffold">编辑</router-link></div>-->
+        <div @click="edit">编辑</div>
+        <div class="export"><router-link :to="exportUrl" target="_blank">导出</router-link></div>
+        <!--<div>移动文件夹</div>-->
+        <div @click="deleteItem">删除</div>
+      </div>
+    </modalMenu>
+
+    <preview v-if="showPage" :page_id="id" :page_alias="page_alias" @closePage="showPage=false"></preview>
+
   </div>
 </template>
 
 
 <script>
+  import modalMenu from '../common/modalMenu';
+  import preview from './preview';
+  import {pageData} from './projectCommon';
+  import {Config, ROUTES} from '../common/api';
+  import obtainData from '../common/common';
+  import coverDefImg from '../../assets/coverImg.png'; // 默认展示图片
   export default {
     name: 'singleProject',
     data () {
       return {
+        dom: null,
+        showModal: false,
+        showPage: false,
+        projectData: {},
+        coverImg: coverDefImg,
+        exportUrl: ''
       };
     },
-    props: ['id', 'name'],
+    props: ['id', 'name', 'img', 'page_alias'],
+    mounted () {
+      this.pageData(this.id);
+      if (this.img) {
+        this.coverImg = Config.image_url + this.img;
+      }
+      this.$refs.img.onerror = () => {
+        this.coverImg = coverDefImg;
+      };
+      this.exportUrl = '/template/' + this.page_alias;
+    },
     methods: {
+      setUp () {
+        // 点开菜单前先获取数据
+        if (this.projectData) {
+          // alert(JSON.stringify(this.projectData));
+          localStorage.setItem('projectData', JSON.stringify(this.projectData));
+          this.showModal = true;
+        } else {
+          this.failMsg('获取失败');
+        }
+      },
+      previewPage () {
+        if (this.projectData) {
+          // alert(JSON.stringify(this.projectData));
+          localStorage.setItem('projectData', JSON.stringify(this.projectData));
+          this.showModal = false;
+          this.showPage = true;
+          this.obtainData(this.projectData);
+        } else {
+          this.failMsg('获取失败');
+        }
+      },
+      edit () {
+        // alert(JSON.stringify(this.projectData));
+        // 将后台获取到的该项目全部数据存入localStorage
+        this.$router.push('/scaffold/ground');
+      },
+      deleteItem () {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          const url = Config.api_url + ROUTES.deleteScaffolOption + '?page_id=' + this.id;
+          this.loading = true;
+          this.$ajax({
+            method: 'get',
+            url: url
+          }).then((res) => {
+            // alert(JSON.stringify(res.data.data));
+            if (res.data.data.ret_code === 1) {
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+              this.loadAll();
+            } else {
+              this.failMsg(res.data.data.ret_msg);
+            }
+            // console.log(res.data);
+            this.showModal = false;
+            this.loading = false;
+          }).catch((err) => {
+            console.log(err);
+            this.failMsg('服务器错误');
+            this.loading = false;
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      },
+      exportPage () {
+        // window.location.reload();
+        // this.$router.push('/template/' + this.page_alias);
+        this.showModal = false;
+      }
     },
     computed: {
+    },
+    components: {
+      modalMenu,
+      preview,
+      pageData,
+      obtainData,
+      coverDefImg
     }
   };
 </script>
@@ -28,6 +142,7 @@
     width:180px;
     cursor:pointer;
   .project-box-con{
+    position: relative;
     width:180px;
     height:180px;
     background: #fff;
@@ -37,12 +152,23 @@
     align-items:center;
     border-radius:6px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.06);
+    .set{
+      position: absolute;
+      top:10px;
+      right:10px;
+      i{
+        color:#fff;
+      }
+    }
   img{
     max-width:100%;
     max-height:100%;
   }
   &:hover{
      border:1px solid #37d6ff;
+    .set i{
+      color:#37d6ff;
+    }
    }
   }
   .project-box-title{
@@ -54,5 +180,13 @@
     white-space:nowrap;
     text-overflow:ellipsis;
   }
+  }
+  .export{
+    a{
+      display: inline-block;
+      width:100%;
+      text-decoration: none;
+      color:#333;
+    }
   }
 </style>

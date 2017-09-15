@@ -4,27 +4,35 @@
         <!-- quill-editor -->
         <quill-editor ref="myTextEditor"
                       v-model="content"
-                      :config="editorOption"
+                      :options="editorOption"
                       @blur="onEditorBlur($event)"
                       @focus="onEditorFocus($event)"
                       @ready="onEditorReady($event)"
                       @change="onEditorChange($event)">
         </quill-editor>
-
       </div>
   </div>
 </template>
 
 <script>
+  var toolbarOptions = [['bold', 'italic'],
+    [{ 'size': ['small', false, 'large', 'huge'] }],
+    [{ 'color': [] }, { 'background': [] }],
+    [{ 'align': [] }]
+  ];
   export default {
     data () {
       return {
-        content: '',
+        content: this.aa,
         editorOption: {
-          // something config
+          placeholder: '请输入内容',
+          modules: {
+            toolbar: toolbarOptions
+          }
         }
       };
     },
+    props: ['aa'], // 直接使用会报错警告,所以用aa中转一下
     // if you need to manually control the data synchronization, parent component needs to explicitly emit an event instead of relying on implicit binding
     // 如果需要手动控制数据同步，父组件需要显式地处理changed事件
     methods: {

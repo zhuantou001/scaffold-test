@@ -20,17 +20,43 @@
       };
     },
     methods: {
+      quitSev () {
+        let self = this;
+        this.$ajax({
+          method: 'get',
+          url: 'http://192.168.1.132:3000/users/loginOut'
+        }).then((res) => {
+          alert('退出成功');
+          if (res.data) {
+            localStorage.setItem('user', '{}');
+            this.$store.commit('newUser', {});
+            this.$message({
+              message: '退出登录成功',
+              type: 'success'
+            });
+            setTimeout(function () {
+              self.$router.push('/');
+            }, 500);
+          }
+          console.log(res.data);
+        }).catch((err) => {
+          console.log(err);
+          this.failMsg('服务器错误');
+        });
+      },
       quit () {
         let self = this;
         localStorage.setItem('user', '{}');
+        localStorage.setItem('token', null);
         this.$store.commit('newUser', {});
         this.$message({
           message: '退出登录成功',
           type: 'success'
         });
         setTimeout(function () {
+          window.location.reload();
           self.$router.push('/');
-        }, 500);
+        }, 50);
       },
       handleCommand (command) {
         if (command === 'quit') {

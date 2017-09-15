@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <span>
     <div id="myModal" class="modal">
       <div class="modal-content" :style="{width: width + 'px'}">
         <div class="modal-header">
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </span>
 </template>
 
 <script>

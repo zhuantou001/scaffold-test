@@ -1,34 +1,36 @@
 <template>
   <div>
     <el-menu mode="vertical" :default-active="activeState" class="el-side-menu">
-      <router-link to="/scaffold">
-        <div class="btn-layout"><el-button type="primary" icon="edit">创建作品</el-button></div>
-      </router-link>
+        <div class="btn-layout"><el-button @click="toScaffold" type="primary" icon="edit">创建作品</el-button></div>
         <el-menu-item-group title="作品管理">
-          <el-menu-item index="work" default-active @click="loadAll(111)"><i class="el-icon-message"></i>我的作品</el-menu-item>
+          <el-menu-item index="work" default-active @click="loadAll()"><i class="el-icon-message"></i>我的作品</el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group title="文件夹管理">
           <div class="side-height">
-            <el-menu-item v-for="item in folderList" @click="loadProject(item.id)" :key="item.id" :index="item.id"><i class="el-icon-message"></i>{{item.name}}</el-menu-item>
+            <el-menu-item v-for="item in folderList" @click="loadInnerProject(item.category_id)" :key="item.category_id" :index="'a' + item.category_id"><i class="el-icon-message"></i>{{item.category_name}}</el-menu-item>
           </div>
-          <div class="btn-layout"><el-button icon="plus">新建文件夹</el-button></div>
+          <div class="btn-layout"><el-button @click="addFolder" icon="plus">新建文件夹</el-button></div>
         </el-menu-item-group>
     </el-menu>
+    <loading :show="loading"></loading>
   </div>
 </template>
 
 <script>
-  import failMsg from '../common/common';
-  import {loadAll, loadProject, getFolderName} from './projectCommon';
+  import {failMsg, resetVuex} from '../common/common';
+  import {loadAll, loadInnerProject, getFolderName} from './projectCommon';
+  import {Config, ROUTES} from '../common/api';
+  import loading from '../loading/Loading';
   export default {
     name: 'sideMenu',
     data () {
       return {
-        folderList: []
+        loading: false
       };
     },
     mounted () {
-      this.getFolderName();
+    },
+    watch: {
     },
     methods: {
       handleOpen (key, keyPath) {
@@ -36,18 +38,67 @@
       },
       handleClose (key, keyPath) {
         console.log(key, keyPath);
+      },
+      toScaffold () {
+        // 创建作品
+        localStorage.setItem('projectData', '');
+        this.resetVuex();
+        this.$router.push('/scaffold/ground');
+      },
+      addFolder () {
+        this.$prompt('例如:文件夹123', '请输入文件夹名', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+        }).then(({ value }) => {
+          const userId = JSON.parse(localStorage.getItem('user')).id;
+          const url = Config.api_url + ROUTES.addFolders + '?fname=' + value + '&operator=' + userId;
+          console.log(url);
+          this.loading = true;
+          this.$ajax({
+            method: 'get',
+            url: url
+          }).then((res) => {
+            // alert(JSON.stringify(res.data.data));
+            if (res.data.data.ret_code === 1) {
+              this.$message({
+                type: 'success',
+                message: '新建文件夹:' + value + '成功'
+              });
+              this.showModal = false;
+              this.loadAll();
+            } else {
+              this.failMsg(res.data.data.ret_msg);
+            }
+            console.log(res.data);
+            this.loading = false;
+          }).catch((err) => {
+            console.log(err);
+            this.failMsg('服务器错误');
+            this.loading = false;
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });
+        });
       }
     },
     computed: {
       activeState () {
         return this.$store.state.project.activeState;
+      },
+      folderList () {
+        return this.$store.state.project.folderList;
       }
     },
     components: {
       failMsg,
+      resetVuex,
       loadAll,
-      loadProject,
-      getFolderName
+      loadInnerProject,
+      getFolderName,
+      loading
     }
   };
 </script>

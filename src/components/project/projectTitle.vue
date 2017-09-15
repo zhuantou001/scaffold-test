@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="projectTitle">
-      <span>我的作品(2个)</span>
+      <span>我的作品</span>
       <div class="goBack"><router-link to="/">回首页</router-link></div>
       <div class="userInfo"><userInfo></userInfo></div>
     </div>

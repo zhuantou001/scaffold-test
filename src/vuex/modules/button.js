@@ -1,6 +1,6 @@
 const state = {
   /* 页面按钮文字、颜色 */
-  buttonObject: {buttonFont: '按钮标题', buttonColor: '#4ca9d4'},
+  buttonObject: {buttonFont: '请输入按钮文字', buttonColor: '#4ca9d4'},
   /* 页面文本内容、颜色、段落、超链接 */
   wordsObject: {wordsContent: '页面文本内容', wordsColor: '#4ca9d4', wordsPara: 'center'},
   /* 页面超文本内容、颜色、段落、超链接 */

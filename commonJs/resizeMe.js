@@ -1,4 +1,4 @@
-export const resizeMe = (img, maxW, maxH, nocheck) => {
+export var resizeMe = function (img, maxW, maxH, nocheck) {
   var canvas = document.createElement('canvas');
   var width = img.width;
   var height = img.height;
@@ -17,7 +17,7 @@ export const resizeMe = (img, maxW, maxH, nocheck) => {
   }
 
   //将图片放入canvas，并重置canvas大小
-  const ctx = canvas.getContext("2d");
+  var ctx = canvas.getContext("2d");
   canvas.width = width;
   canvas.height = height;
   ctx.drawImage(img, 0, 0, width, height);

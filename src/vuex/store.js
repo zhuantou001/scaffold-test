@@ -5,8 +5,11 @@ import topImg from './modules/topImg';
 import options from './modules/options';
 import button from './modules/button';
 import detailImg from './modules/detailImg';
+import background from './modules/background';
 import applyDownload from './modules/applyDownload';
 import project from './modules/project';
+import fill from './modules/fill';
+import commonFill from './modules/commonFill';
 import * as getters from './getters';
 import { actions } from './actions';
 
@@ -22,8 +25,11 @@ export default new Vuex.Store({
     options,
     button,
     detailImg,
+    background,
     applyDownload,
-    project
+    project,
+    fill,
+    commonFill
   },
   strict: false
 });

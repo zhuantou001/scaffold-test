@@ -2,15 +2,16 @@
   <el-menu theme="line" class="el-menu-demo" id="vueHeader" mode="horizontal">
     <el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>
     <el-submenu index="2">
-      <template slot="title">我的工作台</template>
-      <el-menu-item index="2-1">落地页模板</el-menu-item>
-      <el-menu-item index="2-2">填写页模板</el-menu-item>
+      <template slot="title">{{pageName}}</template>
+      <el-menu-item @click="toScaffold('ground')" index="2-1">新建落地页</el-menu-item>
+      <el-menu-item @click="toScaffold('fill')" index="2-2">新建填写页</el-menu-item>
     </el-submenu>
     <el-menu-item index="3"><router-link to="/project">我的作品管理</router-link></el-menu-item>
     <span class="header-title">
-       <getpageTitle></getpageTitle>
-      <el-button type="success">保存</el-button>
-      <el-button type="warning">导出</el-button>
+      <getPageTitleGround v-if="pageParams === 'ground'"></getPageTitleGround>
+      <getPageTitleFill v-else-if="pageParams === 'fill'"></getPageTitleFill>
+      <saveBtnGround v-if="pageParams === 'ground'"></saveBtnGround>
+      <saveBtnFill v-else-if="pageParams === 'fill'"></saveBtnFill>
     </span>
     <span class="userInfo"><userInfo></userInfo></span>
 
@@ -18,18 +19,43 @@
 </template>
 
 <script>
-  import getpageTitle from '../get/pageTitle';
+  import getPageTitleGround from '../groundPage/get/pageTitle';
+  import getPageTitleFill from '../fillPage/get/pageTitle';
   import userInfo from '../login/userInfo';
+  import saveBtnGround from '../groundPage/saveBtn';
+  import saveBtnFill from '../fillPage/saveBtn';
+  import {resetVuex} from '../common/common';
   export default {
     data: function () {
       return {
+        pageName: '',
+        pageParams: ''
       };
     },
+    mounted () {
+      this.pageParams = this.$route.params.style;
+      if (this.pageParams === 'ground') {
+        this.pageName = '新建落地页';
+      } else if (this.pageParams === 'fill') {
+        this.pageName = '新建填写页';
+      }
+    },
     methods: {
+      toScaffold (style) {
+        // 清空
+        localStorage.setItem('projectData', '');
+        window.location.reload();
+        this.resetVuex();
+        this.$router.push('/scaffold/' + style);
+      }
     },
     components: {
-      getpageTitle,
-      userInfo
+      getPageTitleGround,
+      getPageTitleFill,
+      userInfo,
+      saveBtnGround,
+      saveBtnFill,
+      resetVuex
     }
   };
 </script>
