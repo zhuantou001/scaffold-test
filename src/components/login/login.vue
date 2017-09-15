@@ -27,8 +27,7 @@
       </div>
       <div slot="footer">
         <span class="footer-tips">
-          (提示:服务器测试用户名:123456 密码:123456,暂时无需验证码)<br/>
-          (提示:本地测试用户名:1234567 密码:1234567,暂时无需验证码)
+          (提示:本地测试用户名:1500008888 密码:123456,暂时无需验证码)
         </span>
       </div>
     </modalBox>
@@ -158,7 +157,7 @@
         this.loading = true;
         this.$ajax({
           method: 'post',
-          url: url,
+          url: 'login',
           withCredentials: true,
           data: {
             tel: this.phone,
