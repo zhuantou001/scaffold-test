@@ -3,7 +3,7 @@
  */
 export default {
   delay: function (obj) {
-    // alert(JSON.stringify(obj));
+    // console.log(JSON.stringify(obj));
     setTimeout(function () {
       const start = (conText, colorA, colorB) => {
         conText.clearRect(0, 0, 66, 44);

@@ -1,7 +1,8 @@
 <template id="applies">
-  <div class="assembly">
-    <h3>
+  <div class="assembly" :class="{packUp: isSpread}">
+    <h3 @click="spread">
       <i class="el-icon-edit"></i> 应用下载
+      <a class="packUpIcon"><i class="el-icon-arrow-down" :class="{rotate:isSpread, rotate2:!isSpread}"></i></a>
       <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
     </h3>
     <el-row :gutter="20">
@@ -57,6 +58,7 @@
             <el-upload
               class="upload-demo"
               :action="serverUrl"
+              :headers="headerToken"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
               :show-file-list="false"
@@ -106,6 +108,7 @@
     name: 'applies',
     data () {
       return {
+        isSpread: true,
         index: 7,
         serverUrl: Config.api_url + ROUTES.appImgUpload,
         appliesShow: true,
@@ -120,19 +123,22 @@
         showList: this.$store.state.applyDownload.appliesList, // 创建单个应用后，所有应用展示
         editIndex: 888,
         isError: false,
-        errorMessage: '报错啦！' // 报错信息
+        errorMessage: '报错啦！', // 报错信息
+        headerToken: {'x-access-token':localStorage.getItem('token')}
       };
     },
     methods: {
       handleAvatarSuccess (res, file) {
-        this.successMsg('上传成功');
-        this.fileList = [];
-        this.fileData = {};
-        this.fileData.name = res.imgName;
-        this.fileData.url = res.appImg;
-        this.imageUrl = Config.image_url + res.appImg;
-        this.fileList.push(this.fileData);
-        this.buttonShow = false;
+        if (res.resultCode === '0000') {
+          this.successMsg('上传成功');
+          this.fileList = [];
+          this.fileData = {};
+          this.fileData.name = res.data.imgName;
+          this.fileData.url = res.data.appImg;
+          this.imageUrl = Config.img_prev_url + res.data.appImg;
+          this.fileList.push(this.fileData);
+          this.buttonShow = false;
+        }
       },
       // 初始数据
       initData () {
@@ -154,14 +160,18 @@
       handleBfUpload (file) {
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+        // 测试环境 限制50kb
+        const isLt2M = file.size / 1024 < 50;
+        // 正式环境  100kb
+        // const isLt2M = file.size / 1024 < 100;
         if (!isJPG && !isPNG) {
           this.failMsg('上传头图图片只能是 JPG或者PNG 格式');
         }
         if (!isLt2M) {
-          this.$message.error('上传头图图片大小不能超过 2MB!');
+          this.$message.error('上传头图图片大小不能超过 50kb!');
+          // this.$message.error('上传头图图片大小不能超过 100kb!');
         }
-        return isPNG || isJPG && isLt2M;
+        return (isPNG || isJPG) && isLt2M;
       },
       // 创建单个应用
       createApply (editIndex) {
@@ -239,7 +249,7 @@
         this.apply_title = this.showList[index].appliesTitle;
         this.apply_button_title = this.showList[index].appliesButtonText;
         this.apply_url = this.showList[index].appliesHref;
-        this.imageUrl = Config.image_url + this.showList[index].appliesImgUrl;
+        this.imageUrl = Config.img_prev_url + this.showList[index].appliesImgUrl;
         this.editIndex = index;
       },
       // 上移应用
@@ -319,6 +329,14 @@
       deleteFun () {
         // 删除应用下载
         this.deleteComponent(this.setComponentsItems, this.getComponentsItems, this.index);
+      },
+      // 展开收起
+      spread () {
+        if (this.isSpread) {
+          this.isSpread = false;
+        } else {
+          this.isSpread = true;
+        }
       }
     },
     watch: {

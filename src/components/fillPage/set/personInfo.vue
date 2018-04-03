@@ -1,33 +1,50 @@
 <template>
-  <div class="assembly">
-    <h3>
+  <div class="assembly" :class="{packUp: isSpread}">
+    <h3 @click="spread">
       <i class="el-icon-edit"></i> 添加个人信息模块
+      <a class="packUpIcon"><i class="el-icon-arrow-down" :class="{rotate:isSpread, rotate2:!isSpread}"></i></a>
       <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
     </h3>
     <el-row :gutter="20">
+      <el-col :span="6"><label>输入框设置</label></el-col>
       <el-radio-group v-model="radioPerInfo">
         <el-radio :label="1">用户自己编辑</el-radio>
         <el-radio :label="2">系统录入, 用户不可编辑</el-radio>
       </el-radio-group>
     </el-row>
-    <!--<el-row :gutter="20">-->
-      <!--<el-col :span="6"><label>姓名</label></el-col>-->
-      <!--<el-col :span="18"><el-input v-model="per_name" placeholder="请输入姓名"></el-input></el-col>-->
-    <!--</el-row>-->
-    <!--<el-row :gutter="20">-->
-      <!--<el-col :span="6"><label>身份证号</label></el-col>-->
-      <!--<el-col :span="18"><el-input v-model="per_code" placeholder="请输入身份证号"></el-input></el-col>-->
-    <!--</el-row>-->
+    <el-row :gutter="20">
+      <el-col :span="6"><label>模块标题显示</label></el-col>
+      <el-radio-group v-model="moduleTitleShow">
+        <el-radio :label="1">显示</el-radio>
+        <el-radio :label="2">不显示</el-radio>
+      </el-radio-group>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6"><label>是否显示身份证列表</label></el-col>
+      <el-radio-group v-model="isCardLi">
+        <el-radio :label="1">显示</el-radio>
+        <el-radio :label="2">不显示</el-radio>
+      </el-radio-group>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6"><label>输入模块标题</label></el-col>
+      <el-col :span="18"><el-input v-model="moduleTitle" placeholder="请输入内容"></el-input></el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6"><label>输入模块描述</label></el-col>
+      <el-col :span="18"><textEditor @textEditorContent="getTextEditorDesc" :aa="moduleDesc"></textEditor></el-col>
+    </el-row>
   </div>
 </template>
 
 
 <script>
   import deleteComponent from '../../common/common';
+  import textEditor from '../../common/textEditor';
   export default {
     data () {
       return {
-        obj: {}
+        isSpread: true
       };
     },
     props: ['index'],
@@ -36,41 +53,75 @@
     watch: {
     },
     methods: {
-      personInfo () {
-        let arr = [];
-        arr.push(this.obj);
-        this.$store.commit('newPersonInfo', arr);
+      getTextEditorDesc (msg) {
+        this.obj.moduleDesc = msg;
+        this.$store.commit('newPersonInfo', this.obj);
       },
       deleteFun () {
         this.deleteFillComponent(this.setFillComponentsItems, this.getFillComponentsItems, this.index);
+      },
+      // 展开收起
+      spread () {
+        if (this.isSpread) {
+          this.isSpread = false;
+        } else {
+          this.isSpread = true;
+        }
       }
     },
     computed: {
+      obj () {
+        var a = {};
+        a.radioPerInfo = this.$store.state.fill.personInfo.radioPerInfo;
+        a.moduleTitle = this.$store.state.fill.personInfo.moduleTitle;
+        a.moduleTitleShow = this.$store.state.fill.personInfo.moduleTitleShow;
+        a.moduleDesc = this.$store.state.fill.personInfo.moduleDesc;
+        a.isCardLi = this.$store.state.fill.personInfo.isCardLi;
+        return a;
+      },
       radioPerInfo: {
         get () {
-          return this.$store.state.fill.personInfo[0].radioPerInfo;
+          return this.$store.state.fill.personInfo.radioPerInfo;
         },
         set (msg) {
           this.obj.radioPerInfo = msg;
-          this.personInfo();
+          this.$store.commit('newPersonInfo', this.obj);
         }
       },
-      per_name: {
+      moduleTitle: {
         get () {
-          return this.$store.state.fill.personInfo[0].perName;
+          return this.$store.state.fill.personInfo.moduleTitle;
         },
         set (msg) {
-          this.obj.perName = msg;
-          this.personInfo();
+          this.obj.moduleTitle = msg;
+          this.$store.commit('newPersonInfo', this.obj);
         }
       },
-      per_code: {
+      moduleTitleShow: {
         get () {
-          return this.$store.state.fill.personInfo[0].perCode;
+          return this.$store.state.fill.personInfo.moduleTitleShow;
         },
         set (msg) {
-          this.obj.perCode = msg;
-          this.personInfo();
+          this.obj.moduleTitleShow = msg;
+          this.$store.commit('newPersonInfo', this.obj);
+        }
+      },
+      moduleDesc: {
+        get () {
+          return this.$store.state.fill.personInfo.moduleDesc;
+        },
+        set (msg) {
+          this.obj.moduleDesc = msg;
+          this.$store.commit('newPersonInfo', this.obj);
+        }
+      },
+      isCardLi: {
+        get () {
+          return this.$store.state.fill.personInfo.isCardLi;
+        },
+        set (msg) {
+          this.obj.isCardLi = msg;
+          this.$store.commit('newPersonInfo', this.obj);
         }
       },
       setFillComponentsItems () {
@@ -80,8 +131,9 @@
         return this.$store.state.fill.getFillComponentsItems;
       }
     },
-    component: {
-      deleteComponent
+    components: {
+      deleteComponent,
+      textEditor
     }
   };
 </script>

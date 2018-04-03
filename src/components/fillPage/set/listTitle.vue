@@ -1,7 +1,8 @@
 <template>
-  <div class="assembly">
-    <h3>
+  <div class="assembly" :class="{packUp: isSpread}">
+    <h3 @click="spread">
       <i class="el-icon-edit"></i> 添加 list title ({{index}})
+      <a class="packUpIcon"><i class="el-icon-arrow-down" :class="{rotate:isSpread, rotate2:!isSpread}"></i></a>
       <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
     </h3>
     <el-row :gutter="20">
@@ -21,6 +22,7 @@
   export default {
     data () {
       return {
+        isSpread: true,
         list: [],
         obj: {index: this.index}
       };
@@ -49,6 +51,14 @@
       },
       deleteFun () {
         this.deleteFillComponent(this.setFillComponentsItems, this.getFillComponentsItems, this.index, 'listTitles', 'newListTitles');
+      },
+      // 展开收起
+      spread () {
+        if (this.isSpread) {
+          this.isSpread = false;
+        } else {
+          this.isSpread = true;
+        }
       }
     },
     computed: {

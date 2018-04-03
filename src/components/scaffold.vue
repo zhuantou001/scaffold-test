@@ -22,6 +22,7 @@
       };
     },
     mounted () {
+      document.getElementsByTagName("title")[0].text = '装修工程';
       if (this.$route.params.style === 'ground') {
         this.pageStyle = true;
       } else if (this.$route.params.style === 'fill') {

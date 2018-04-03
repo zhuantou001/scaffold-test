@@ -1,20 +1,23 @@
 <template>
   <el-menu theme="line" class="el-menu-demo" id="vueHeader" mode="horizontal">
-    <el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>
+    <!--<el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>-->
+    <el-menu-item index="3"><router-link to="/project">我的作品管理</router-link></el-menu-item>
     <el-submenu index="2">
       <template slot="title">{{pageName}}</template>
       <el-menu-item @click="toScaffold('ground')" index="2-1">新建落地页</el-menu-item>
       <el-menu-item @click="toScaffold('fill')" index="2-2">新建填写页</el-menu-item>
     </el-submenu>
-    <el-menu-item index="3"><router-link to="/project">我的作品管理</router-link></el-menu-item>
     <span class="header-title">
       <getPageTitleGround v-if="pageParams === 'ground'"></getPageTitleGround>
       <getPageTitleFill v-else-if="pageParams === 'fill'"></getPageTitleFill>
+
       <saveBtnGround v-if="pageParams === 'ground'"></saveBtnGround>
       <saveBtnFill v-else-if="pageParams === 'fill'"></saveBtnFill>
+
+      <!--<a v-if="pageParams === 'ground'" :href="exportUrl" target="_blank">导出</a>-->
     </span>
     <span class="userInfo"><userInfo></userInfo></span>
-
+    <userAuth></userAuth>
   </el-menu>
 </template>
 
@@ -25,11 +28,13 @@
   import saveBtnGround from '../groundPage/saveBtn';
   import saveBtnFill from '../fillPage/saveBtn';
   import {resetVuex} from '../common/common';
+  import userAuth from '../project/userAuth'
   export default {
     data: function () {
       return {
         pageName: '',
-        pageParams: ''
+        pageParams: '',
+        exportUrl: ''
       };
     },
     mounted () {
@@ -39,14 +44,16 @@
       } else if (this.pageParams === 'fill') {
         this.pageName = '新建填写页';
       }
+//      this.exportUrl = Config.http_show_url + this.page_alias;
     },
     methods: {
       toScaffold (style) {
         // 清空
         localStorage.setItem('projectData', '');
-        window.location.reload();
+        localStorage.setItem('singleFillData', '');
         this.resetVuex();
         this.$router.push('/scaffold/' + style);
+        window.location.reload();
       }
     },
     components: {
@@ -55,7 +62,8 @@
       userInfo,
       saveBtnGround,
       saveBtnFill,
-      resetVuex
+      resetVuex,
+      userAuth
     }
   };
 </script>

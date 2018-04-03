@@ -3,11 +3,11 @@
     <el-menu mode="vertical" :default-active="activeState" class="el-side-menu">
         <div class="btn-layout"><el-button @click="toScaffold" type="primary" icon="edit">创建作品</el-button></div>
         <el-menu-item-group title="作品管理">
-          <el-menu-item index="work" default-active @click="loadAll()"><i class="el-icon-message"></i>我的作品</el-menu-item>
+          <el-menu-item index="work" default-active @click="loadAllList"><i class="el-icon-message"></i>我的作品</el-menu-item>
         </el-menu-item-group>
         <el-menu-item-group title="文件夹管理">
-          <div class="side-height">
-            <el-menu-item v-for="item in folderList" @click="loadInnerProject(item.category_id)" :key="item.category_id" :index="'a' + item.category_id"><i class="el-icon-message"></i>{{item.category_name}}</el-menu-item>
+          <div class="side-height" id='sideList'>
+            <el-menu-item v-for="item in folderList" @click="loadInnerProject(item.category_id)" :key="item.category_id" :index="'a' + item.category_id" :title="item.category_name"><i class="el-icon-message"></i>{{item.category_name}}</el-menu-item>
           </div>
           <div class="btn-layout"><el-button @click="addFolder" icon="plus">新建文件夹</el-button></div>
         </el-menu-item-group>
@@ -59,15 +59,17 @@
             url: url
           }).then((res) => {
             // alert(JSON.stringify(res.data.data));
-            if (res.data.data.ret_code === 1) {
+            if (res.data.data.ret_code === '0000') {
               this.$message({
                 type: 'success',
                 message: '新建文件夹:' + value + '成功'
               });
               this.showModal = false;
               this.loadAll();
-            } else {
+            } else if (res.data.data.ret_code === '5555') {
               this.failMsg(res.data.data.ret_msg);
+            } else  if (res.data.data.ret_code === '9999'){
+              this.failMsg('新建失败!');
             }
             console.log(res.data);
             this.loading = false;
@@ -82,6 +84,10 @@
             message: '取消输入'
           });
         });
+      },
+      loadAllList () {
+        this.loadAll();
+        this.$store.commit('newSearchValue', '---请选择用户---');
       }
     },
     computed: {
@@ -117,6 +123,13 @@
   .side-height{
     height: calc(100vh - 300px);
     overflow-y:scroll;
+    overflow-x:hidden;
+    li{
+      width:100%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
     &::-webkit-scrollbar{
       width: 2px;
     }

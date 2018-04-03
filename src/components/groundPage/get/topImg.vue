@@ -1,7 +1,10 @@
-<template id="topImg">
-  <div>
+<template>
+  <div class="top-img">
     <div class="replace-img" :class="{'show':isShow,'hide':!isShow}"><span>请上传头图</span></div>
-    <img class="imgDetail" :class="{'show':!isShow,'hide':isShow}" :data="topImgUrl" :src="topImgUrl" alt="" onerror="" title="请上传头图" >
+    <!-- <img class="imgDetail" :class="{'show':!isShow,'hide':isShow}" :data="topImgUrl" :src="topImgUrl" alt="" onerror="" title="" > -->
+    <li v-for="(item, index) in absoluteTopImgUrls">
+      <img :src="item.image_url" :id="'top_image' + index">
+    </li>
   </div>
 </template>
 
@@ -11,7 +14,6 @@
   import { resizeMe } from '../../../../commonJs/resizeMe';
   import {Config} from '../../common/api';
   export default {
-    name: 'topImg',
     data () {
       return {
       };
@@ -47,19 +49,39 @@
       }
     },
     computed: {
-      topImgUrl () {
-        const that = this;
-        if (this.$store.state.topImg.topImgUrl.size > 0) {
-          that.tallMe(that.$store.state.topImg.topImgUrl);
+      // topImgUrl () {
+      //   const that = this;
+      //   if (this.$store.state.topImg.topImgFileList.size > 0) {
+      //     that.tallMe(that.$store.state.topImg.topImgFileList);
+      //   }
+      //   if (that.$store.state.topImg.topImgFileList) {
+      //     if (this.$route.name == 'templateExport' || this.$route.name == 'templateFillExport') {
+      //       return Config.image_url + that.$store.state.topImg.topImgFileList;
+      //     } else {
+      //       return Config.img_prev_url + that.$store.state.topImg.topImgFileList;
+      //     }
+      //   } else {
+      //     return '';
+      //   }
+      // },
+      topImgFileList () {
+        return this.$store.state.topImg.topImgFileList;
+      },
+      absoluteTopImgUrls () {
+        let arr = [];
+        for (let i = 0; i < this.topImgFileList.length; i++) {
+          let obj = {};
+          if (this.$route.name == 'templateExport' || this.$route.name == 'templateFillExport') {
+            obj.image_url = Config.image_url + this.topImgFileList[i].image_url;
+          } else {
+            obj.image_url = Config.img_prev_url + this.topImgFileList[i].image_url;
+          }
+          arr.push(obj);
         }
-        if (that.$store.state.topImg.topImgUrl) {
-          return Config.image_url + that.$store.state.topImg.topImgUrl;
-        } else {
-          return '';
-        }
+        return arr;
       },
       isShow () {
-        if (this.$store.state.topImg.topImgUrl) {
+        if (this.$store.state.topImg.topImgFileList.length) {
           return false;
         } else {
           return true;

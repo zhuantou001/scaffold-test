@@ -5,7 +5,7 @@
         <div class="set" @click.stop="setUp"><i class="el-icon-more"></i></div>
         <img src="../../assets/folder.png"/>
       </div>
-      <div class="folder-box-title">{{name}}</div>
+      <div class="folder-box-title" :title="name">{{name}}</div>
     </div>
 
     <modalMenu v-if="showModal" @closeModal="showModal=false" :width="260">
@@ -50,17 +50,21 @@
             url: url
           }).then((res) => {
             // alert(JSON.stringify(res.data.data));
-            if (res.data.data.ret_code === 1) {
+            if (res.data.data.ret_code === '0000') {
               this.$message({
                 type: 'success',
                 message: '修改名字为:' + value
               });
               this.showModal = false;
               this.loadAll();
+            } else if (res.data.data.ret_code === '5555') {
+              this.failMsg(res.data.data.ret_msg);
+            } else if (res.data.data.ret_code === '9999') {
+              this.failMsg('修改失败!');
             } else {
               this.failMsg('暂时无数据');
             }
-            console.log(res.data);
+//            console.log(res.data);
             this.loading = false;
           }).catch((err) => {
             console.log(err);
@@ -88,17 +92,19 @@
             url: url
           }).then((res) => {
             // alert(JSON.stringify(res.data.data));
-            if (res.data.data.ret_code === 1) {
+            if (res.data.data.ret_code === '0000') {
               this.$message({
                 type: 'success',
                 message: '删除成功!'
               });
               this.showModal = false;
               this.loadAll();
-            } else {
+            } else if (res.data.data.ret_code === '5555') {
               this.failMsg(res.data.data.ret_msg);
+            } else if (res.data.data.ret_code === '9999') {
+              this.failMsg('删除失败!');
             }
-            console.log(res.data);
+//            console.log(res.data);
             this.loading = false;
           }).catch((err) => {
             console.log(err);

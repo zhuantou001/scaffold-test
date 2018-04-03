@@ -1,7 +1,9 @@
 <template id="pageTitle">
-  <div class="assembly">
-    <h3>
-      <i class="el-icon-edit"></i> 添加标题</h3>
+  <div class="assembly" :class="{packUp: isSpread}">
+    <h3 @click="spread">
+      <i class="el-icon-edit"></i> 设置页面参数(必填)
+      <a class="packUpIcon"><i class="el-icon-arrow-down" :class="{rotate:isSpread, rotate2:!isSpread}"></i></a>
+    </h3>
     <el-row :gutter="20">
       <el-col :span="6">
         <label>标题</label>
@@ -32,22 +34,38 @@
     </el-row>
     <el-row :gutter="20">
       <el-col :span="6">
-        <label>设置成功弹框内容</label>
-        <a class='view' href='javascript:;' @click='viewAlert' style='color:#20a0ff;display: block; padding-left: 25px;'>(查看演示)</a>
+        <label>初始化接口</label>
       </el-col>
       <el-col :span="18">
-        <textEditor @textEditorContent_succ="getTextEditorDesc" :aa="succ_describe"></textEditor>
+        <el-input v-model="init_url" placeholder="请输入初始化接口"></el-input>
       </el-col>
     </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <label>提交接口</label>
+      </el-col>
+      <el-col :span="18">
+        <el-input v-model="submit_url" placeholder="请输入提交接口"></el-input>
+      </el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <label>提交字段</label>
+      </el-col>
+      <el-col :span="18">
+        <el-input v-model="submit_field" placeholder="请输入提交接口"></el-input>
+      </el-col>
+    </el-row>
+
   </div>
 </template>
 
 <script>
-import textEditor from '../common/editor';
 export default {
   name: '',
   data() {
     return {
+      isSpread: true
     };
   },
   mounted() {
@@ -58,12 +76,13 @@ export default {
       arr.push(this.obj);
       this.$store.commit('newPageNature', arr);
     },
-    getTextEditorDesc(msg) {
-      this.$store.commit('newSuccContent', msg);
-    },
-    viewAlert() {  // 查看演示，显示弹窗
-      this.$store.commit('newSuccFlag', true);
-      this.$store.commit('newShowMask', true);
+    // 展开收起
+    spread () {
+      if (this.isSpread) {
+        this.isSpread = false;
+      } else {
+        this.isSpread = true;
+      }
     }
   },
   watch: {
@@ -75,6 +94,9 @@ export default {
       a.pageUrl = this.$store.state.fill.pageNature[0].pageUrl;
       a.pageDesc = this.$store.state.fill.pageNature[0].pageDesc;
       a.majorColor = this.$store.state.fill.pageNature[0].majorColor;
+      a.initUrl = this.$store.state.fill.pageNature[0].initUrl;
+      a.submitUrl = this.$store.state.fill.pageNature[0].submitUrl;
+      a.submitField = this.$store.state.fill.pageNature[0].submitField;
       return a;
     },
     page_title: {
@@ -113,17 +135,35 @@ export default {
         this.pageNature();
       }
     },
-    succ_describe: {
-      get() {
-        return this.$store.state.fill.succContent[0].succDes;
+    init_url: {
+      get () {
+        return this.$store.state.fill.pageNature[0].initUrl;
       },
-      set(msg) {
-        this.$store.commit('newSuccContent', msg);
+      set (msg) {
+        this.obj.initUrl = msg;
+        this.pageNature();
+      }
+    },
+    submit_url: {
+      get () {
+        return this.$store.state.fill.pageNature[0].submitUrl;
+      },
+      set (msg) {
+        this.obj.submitUrl = msg;
+        this.pageNature();
+      }
+    },
+    submit_field: {
+      get () {
+        return this.$store.state.fill.pageNature[0].submitField;
+      },
+      set (msg) {
+        this.obj.submitField = msg;
+        this.pageNature();
       }
     }
   },
   components: {
-    textEditor
   }
 };
 </script>

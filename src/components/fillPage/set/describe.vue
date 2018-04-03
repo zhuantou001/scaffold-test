@@ -1,13 +1,17 @@
 <template>
-  <div class="assembly">
-    <h3>
-      <i class="el-icon-edit"></i> 添加描述模块({{index}})
+  <div class="assembly" :class="{packUp: isSpread}">
+    <h3 @click="spread">
+      <i class="el-icon-edit"></i> 描述模块({{index}})
+      <a class="packUpIcon"><i class="el-icon-arrow-down" :class="{rotate:isSpread, rotate2:!isSpread}"></i></a>
       <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
     </h3>
     <el-row :gutter="20">
       <el-col :span="6"><label>描述</label></el-col>
-      <!--<el-col :span="18"><el-input v-model="describe" placeholder="请输入描述"></el-input></el-col>-->
       <el-col :span="18"><textEditor @textEditorContent="getTextEditorDesc" :aa="describe"></textEditor></el-col>
+    </el-row>
+    <el-row :gutter="20">
+      <el-col :span="6"><label>缩放比例</label></el-col>
+      <el-col :span="18"><el-input type="number" v-model="scale" placeholder="如想缩放,请输入缩放比例,如0.85"></el-input></el-col>
     </el-row>
   </div>
 </template>
@@ -19,6 +23,7 @@
   export default {
     data () {
       return {
+        isSpread: true,
         obj: {index: this.index}
       };
     },
@@ -41,6 +46,8 @@
         let arr = this.$store.state.fill.describes;
         for (let i in arr) {
           if (arr[i].index === this.index) {
+//            this.obj.describe = arr[i].describe;
+//            this.obj.scale = arr[i].scale;
             arr.splice((i), 1, this.obj);
             has = true;
           }
@@ -48,10 +55,19 @@
         if (!has) {
           arr.push(this.obj);
         }
+        console.log(arr);
         this.$store.commit('newDescribes', arr);
       },
       deleteFun () {
-        this.deleteFillComponent(this.setFillComponentsItems, this.getFillComponentsItems, this.index, 'describe', 'newDescribes');
+        this.deleteFillComponent(this.setFillComponentsItems, this.getFillComponentsItems, this.index, 'describes', 'newDescribes');
+      },
+      // 展开收起
+      spread () {
+        if (this.isSpread) {
+          this.isSpread = false;
+        } else {
+          this.isSpread = true;
+        }
       }
     },
     computed: {
@@ -66,6 +82,22 @@
         },
         set (msg) {
           this.obj.describe = msg;
+          this.obj.scale = this.scale;
+          this.describes();
+        }
+      },
+      scale: {
+        get () {
+          let arr = this.$store.state.fill.describes;
+          for (let i in arr) {
+            if (arr[i].index === this.index) {
+              return arr[i].scale;
+            }
+          }
+        },
+        set (msg) {
+          this.obj.describe = this.describe;
+          this.obj.scale = msg;
           this.describes();
         }
       },

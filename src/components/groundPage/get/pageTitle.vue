@@ -2,7 +2,7 @@
   <span>
     <span class="page-title" >{{pageTitle}}</span>
     <span class="page-url" >({{pageUrl}})</span>
-    <span class="page-url" >({{pageDescContent}})</span>
+    <!--<span class="page-url" >({{pageDescContent}})</span>-->
   </span>
 </template>
 

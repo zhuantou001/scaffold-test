@@ -10,16 +10,18 @@
 
     <modalMenu v-if="showModal" @closeModal="showModal=false" :width="260">
       <div slot="body">
-        <div @click="previewPage">预览</div>
+        <!-- <div @click="previewPage">预览</div> -->
         <!--<div><router-link :pageId="111" to="/scaffold">编辑</router-link></div>-->
         <div @click="edit">编辑</div>
-        <div class="export"><router-link :to="exportUrl" target="_blank">导出</router-link></div>
+        <div class="export"><a :href="exportUrl" target="_blank">预览</a></div>
+        <div class="export"><a :href="exportUrlPro" target="_blank">导出</a></div>
         <!--<div>移动文件夹</div>-->
+        <div @click="nowEffect">立即生效</div>
         <div @click="deleteItem">删除</div>
       </div>
     </modalMenu>
 
-    <preview v-if="showPage" :page_id="id" :page_alias="page_alias" @closePage="showPage=false"></preview>
+    <groundPreview v-if="showPage" :page_id="id" :page_alias="page_alias" @closePage="showPage=false"></groundPreview>
 
   </div>
 </template>
@@ -27,10 +29,9 @@
 
 <script>
   import modalMenu from '../common/modalMenu';
-  import preview from './preview';
-  import {pageData} from './projectCommon';
+  import groundPreview from './groundPreview';
   import {Config, ROUTES} from '../common/api';
-  import obtainData from '../common/common';
+  import {obtainData, hasEffect} from '../common/common';
   import coverDefImg from '../../assets/coverImg.png'; // 默认展示图片
   export default {
     name: 'singleProject',
@@ -41,19 +42,22 @@
         showPage: false,
         projectData: {},
         coverImg: coverDefImg,
-        exportUrl: ''
+        exportUrl: '',
+        exportUrlPro: ''
       };
     },
     props: ['id', 'name', 'img', 'page_alias'],
     mounted () {
-      this.pageData(this.id);
+      this.singleGroundPageData(this.id);
+     // console.log(this. projectData)
       if (this.img) {
-        this.coverImg = Config.image_url + this.img;
+        this.coverImg = Config.img_prev_url + this.img;
       }
       this.$refs.img.onerror = () => {
         this.coverImg = coverDefImg;
       };
-      this.exportUrl = '/template/' + this.page_alias;
+      this.exportUrl = Config.http_show_url + this.page_alias;
+      this.exportUrlPro = Config.http_show_url_pro + this.page_alias;
     },
     methods: {
       setUp () {
@@ -68,10 +72,11 @@
       },
       previewPage () {
         if (this.projectData) {
-          // alert(JSON.stringify(this.projectData));
+         // alert(JSON.stringify(this.projectData));
           localStorage.setItem('projectData', JSON.stringify(this.projectData));
           this.showModal = false;
           this.showPage = true;
+          this.$store.commit('newScreenType', 'vertical');
           this.obtainData(this.projectData);
         } else {
           this.failMsg('获取失败');
@@ -88,21 +93,23 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          const url = Config.api_url + ROUTES.deleteScaffolOption + '?page_id=' + this.id;
+          const url = Config.api_url + ROUTES.deleteScaffolOption + '?page_id=' + this.id + '&page_alias=' + this.page_alias;
           this.loading = true;
           this.$ajax({
             method: 'get',
             url: url
           }).then((res) => {
             // alert(JSON.stringify(res.data.data));
-            if (res.data.data.ret_code === 1) {
+            if (res.data.data.ret_code === '0000') {
               this.$message({
                 type: 'success',
                 message: '删除成功!'
               });
               this.loadAll();
-            } else {
+            } else if (res.data.data.ret_code === '5555') {
               this.failMsg(res.data.data.ret_msg);
+            } else if (res.data.data.ret_code === '9999') {
+              this.failMsg('删除失败!');
             }
             // console.log(res.data);
             this.showModal = false;
@@ -119,6 +126,10 @@
           });
         });
       },
+      nowEffect () {
+        const url = Config.api_url + ROUTES.updateScaffoldPro + '?page_id=' + this.id + '&page_alias=' + this.page_alias;
+        this.hasEffect(url);
+      },
       exportPage () {
         // window.location.reload();
         // this.$router.push('/template/' + this.page_alias);
@@ -129,9 +140,9 @@
     },
     components: {
       modalMenu,
-      preview,
-      pageData,
+      groundPreview,
       obtainData,
+      hasEffect,
       coverDefImg
     }
   };

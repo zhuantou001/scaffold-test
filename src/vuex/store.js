@@ -9,7 +9,11 @@ import background from './modules/background';
 import applyDownload from './modules/applyDownload';
 import project from './modules/project';
 import fill from './modules/fill';
+import fillInfo from './modules/fillInfo';
+import fillInfoSubmit from './modules/fillInfoSubmit';
 import commonFill from './modules/commonFill';
+import share from './modules/share';
+import floatImg from './modules/floatImg';
 import * as getters from './getters';
 import { actions } from './actions';
 
@@ -29,7 +33,11 @@ export default new Vuex.Store({
     applyDownload,
     project,
     fill,
-    commonFill
+    fillInfo,
+    fillInfoSubmit,
+    commonFill,
+    share,
+    floatImg,
   },
   strict: false
 });

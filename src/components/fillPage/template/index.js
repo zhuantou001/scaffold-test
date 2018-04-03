@@ -252,9 +252,9 @@ $(() => {
         },
         complete: (XMLHttpRequest, status) => {
           if (status === 'timeout') {
-            $('.number-loading').hide();
-            $('.timeOut').show();
-            $('#refresh').addClass('time-out');
+            // $('.number-loading').hide();
+            // $('.timeOut').show();
+            // $('#refresh').addClass('time-out');
           }
         },
       });

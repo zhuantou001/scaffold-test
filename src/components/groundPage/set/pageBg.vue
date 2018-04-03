@@ -1,32 +1,34 @@
 <template id="switchBg">
-  <div class="assembly" v-show='pageBg'>
-    <h3>
+  <div class="assembly" :class="{packUp: isSpread}">
+    <h3 @click="spread">
       <i class="el-icon-edit"></i> 设置页面背景
+      <a class="packUpIcon"><i class="el-icon-arrow-down" :class="{rotate:isSpread, rotate2:!isSpread}"></i></a>
       <a class="del-component" @click="deleteFun"><i class="el-icon-delete"></i></a>
     </h3>
     <el-row :gutter="20">
-      <el-radio-group v-model="radioSwitchBg">
+      <el-radio-group v-model="bgRadio">
         <el-radio :label="0">无色</el-radio>
         <el-radio :label="1">纯色</el-radio>
         <el-radio :label="2">图片</el-radio>
       </el-radio-group>
     </el-row>
-    <div class='pageBg empty' v-show='radioSwitchBg==0'>
-      
+    <div class='pageBg empty' v-show='bgRadio==0'>
+
     </div>
-    <div class='pageBg pageColor ' v-show='radioSwitchBg==1'>
+    <div class='pageBg pageColor' v-show='bgRadio==1'>
       <el-row :gutter="20">
         <el-col :span="6"><label>设置纯色背景</label></el-col>
-        <el-col :span="18"><el-input style="width:40%;" type="color" v-model="page_color"></el-input></el-col>
+        <el-col :span="18"><el-input style="width:40%;" type="color" v-model="bgColor"></el-input></el-col>
       </el-row>
     </div>
-     <div class='pageBg pagePic' v-show='radioSwitchBg==2'>
+     <div class='pageBg pagePic' v-show='bgRadio==2'>
       <el-row :gutter="20">
         <el-col :span="6"><label>上传背景图</label></el-col>
         <el-col :span="18">
           <el-upload
             class="avatar-uploader"
             :action="serverUrl"
+            :headers="headerToken"
             :show-file-list="false"
             :multiple="false"
             :auto-upload="true"
@@ -37,96 +39,108 @@
           </el-upload>
         </el-col>
       </el-row>
-    </div> 
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import {deleteComponent, successMsg, failMsg} from '../../common/common';
   import {Config, ROUTES} from '../../common/api';
-
   export default {
     data () {
       return {
+        isSpread: true,
         index: 8, // 每个组件都有的唯一标识
         serverUrl: Config.api_url + ROUTES.bgImgUpload,
-        pageBg: true,
-        defaultColor: {
-          radioSwitchBg: parseInt(this.$store.state.background.radioSwitchBg),
-          page_color: this.$store.state.background.page_color,
-          pageBg: this.$store.state.background.pageBg
-        }
+        headerToken: {'x-access-token':localStorage.getItem('token')}
       };
     },
     methods: {
       handleAvatarSuccess (res, file) {
-        this.successMsg('上传成功');
-        console.log(res);
-        this.bgImgUrl = res.bgImg;
+        if (res.resultCode === '0000') {
+          this.successMsg('上传成功');
+          console.log(res);
+          this.bgImg = res.data.bgImg;
+        }
       },
       beforeAvatarUpload (file) {
         const isJPG = file.type === 'image/jpeg';
         const isPNG = file.type === 'image/png';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+        // 测试环境 限制50kb
+        const isLt2M = file.size / 1024 < 50;
+        // 正式环境  100kb
+        // const isLt2M = file.size / 1024 < 100;
         if (!isJPG && !isPNG) {
           this.failMsg('上传头图图片只能是 JPG或者PNG 格式');
+          return false;
         }
         if (!isLt2M) {
-          this.$message.error('上传头图图片大小不能超过 2MB!');
+          this.failMsg('上传头图图片大小不能超过 50kb!');
+          return false;
+          // this.$message.error('上传头图图片大小不能超过 100kb!');
         }
-        return isPNG || isJPG && isLt2M;
+        return (isPNG || isJPG) && isLt2M;
       },
       deleteFun () {
         // 删除背景模块预览
-        this.pageBg = false;
-        this.$store.commit('newPageBg', this.pageBg);
-        this.radioSwitchBg = 0;
-        this.page_color = '#ffffff';
+        const arrReset = {bgRadio: 0, bgColor: '#ffffff', bgImg: ''};
+        this.$store.commit('newPageBg', arrReset);
         this.deleteComponent(this.setComponentsItems, '', this.index);
-      }
+      },
+      // 展开收起
+      spread () {
+        if (this.isSpread) {
+          this.isSpread = false;
+        } else {
+          this.isSpread = true;
+        }
+      },
+      pageBg () {
+        this.$store.commit('newPageBg', this.obj);
+      },
     },
     watch: {
-      pageBg: function() {
-        this.$store.commit('newPageBg', this.pageBg);
-      }
+
     },
     computed: {
-      radioSwitchBg: {
+      obj () {
+        var a = {};
+        a.bgRadio = this.$store.state.background.pageBg.bgRadio;
+        a.bgColor = this.$store.state.background.pageBg.bgColor;
+        a.bgImg = this.$store.state.background.pageBg.bgImg;
+        return a;
+      },
+      bgRadio: {
         get () {
-          return parseInt(this.$store.state.background.radioSwitchBg);
+          return this.$store.state.background.pageBg.bgRadio;
         },
-        set (value) {
-          this.$store.commit('newSwitchBgNum', value);
+        set (msg) {
+          this.obj.bgRadio = msg;
+          this.pageBg();
         }
       },
-      page_color: {
+      bgColor: {
         get () {
-          return this.$store.state.background.page_color;
+          return this.$store.state.background.pageBg.bgColor;
         },
-        set (value) {
-          this.$store.commit('newPageColor', value);
+        set (msg) {
+          this.obj.bgColor = msg;
+          this.pageBg();
         }
       },
-      bgImgUrl: {
+      bgImg: {
         get () {
-          return this.$store.state.background.bgImgUrl;
+          return this.$store.state.background.pageBg.bgImg;
         },
-        set (value) {
-          this.$store.commit('newImgUrl', value);
-        }
-      },
-      bgImgName: {
-        get () {
-          return this.$store.state.background.bgImgName;
-        },
-        set (value) {
-          this.$store.commit('newImgName', value);
+        set (msg) {
+          this.obj.bgImg = msg;
+          this.pageBg();
         }
       },
       // 绝对路径
       absoluteTopImgUrl () {
-        if (this.bgImgUrl) {
-          return Config.image_url + this.bgImgUrl;
+        if (this.bgImg) {
+          return Config.img_prev_url + this.bgImg;
         } else {
           return '';
         }

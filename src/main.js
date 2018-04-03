@@ -9,15 +9,16 @@ import Vuex from 'vuex';
 import store from './vuex/store';
 import VueQuillEditor from 'vue-quill-editor';
 import axios from 'axios';
-
+import VueResouse from 'vue-resource';
 // import $ from 'jquery';
 
 Vue.use(Element);
 Vue.use(Vuex);
 Vue.use(VueQuillEditor);
+Vue.use(VueResouse);
 // Vue.use($);
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = false;
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {

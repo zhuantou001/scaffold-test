@@ -75,7 +75,7 @@ export default {
         data: data
       }).then(function(res) {
         alert(res.data.alertImg)
-        const value = Config.image_url + res.data.alertImg;
+        const value = Config.img_prev_url + res.data.alertImg;
         vm.addImgRange = vm.$refs.myTextEditor.quill.getSelection();
         vm.$refs.myTextEditor.quill.insertEmbed(vm.addImgRange != null ? vm.addImgRange.index : 0, 'image', value, Quill.sources.USER)
         document.getElementById(vm.uniqueId).value = '';

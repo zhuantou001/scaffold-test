@@ -4,6 +4,7 @@
     <div class="content">
       <projectTitle></projectTitle>
       <projectContainer></projectContainer>
+      <userAuth></userAuth>
     </div>
   </div>
 </template>
@@ -12,6 +13,7 @@
   import sideMenu from './sideMenu';
   import projectTitle from './projectTitle';
   import projectContainer from './projectContainer';
+  import userAuth from './userAuth';
   export default {
     name: 'project',
     data () {
@@ -19,12 +21,16 @@
         msg: '您已经进入项目管理页面'
       };
     },
+    mounted () {
+      document.getElementsByTagName("title")[0].text = '装修工程';
+    },
     methods: {
     },
     components: {
       sideMenu,
       projectTitle,
-      projectContainer
+      projectContainer,
+      userAuth
     }
   };
 </script>

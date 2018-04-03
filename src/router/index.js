@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import home from '@/components/home';
 import scaffold from '@/components/scaffold';
 import project from '@/components/project/project';
-import templateExport from '@/components/groundPage/template/templateExport';
 
 Vue.use(Router);
 
@@ -40,15 +39,6 @@ const router = new Router({
       component: project,
       meta: {
         requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
-        allowBack: false
-      }
-    },
-    {
-      path: '/template/:name',
-      name: 'templateExport',
-      component: templateExport,
-      meta: {
-        // requireAuth: true,  // 针对所有用开放，不用鉴权
         allowBack: false
       }
     }

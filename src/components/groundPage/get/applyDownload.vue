@@ -16,7 +16,7 @@
     name: 'applies',
     data () {
       return {
-        imgAdd: Config.image_url
+        imgAdd: this.$route.name == 'templateExport' || this.$route.name == 'templateFillExport' ? Config.image_url : Config.img_prev_url
       };
     },
     watch: {

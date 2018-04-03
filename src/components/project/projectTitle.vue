@@ -2,7 +2,8 @@
   <div>
     <div class="projectTitle">
       <span>我的作品</span>
-      <div class="goBack"><router-link to="/">回首页</router-link></div>
+      <!--<div class="goBack"><router-link to="/">回首页</router-link></div>-->
+      <div class='projectFilter'><projectFilter></projectFilter></div>
       <div class="userInfo"><userInfo></userInfo></div>
     </div>
   </div>
@@ -11,6 +12,7 @@
 
 <script>
   import userInfo from '../login/userInfo';
+  import projectFilter from './projectFilter';
   export default {
     name: 'projectTitle',
     data () {
@@ -22,7 +24,8 @@
     computed: {
     },
     components: {
-      userInfo
+      userInfo,
+      projectFilter
     }
   };
 </script>
@@ -51,6 +54,11 @@
       position: absolute;
       top:8px;
       right:10px;
+    }
+    .projectFilter {
+      position: absolute;
+      top: 8px;
+      right: 92px;
     }
   }
 </style>

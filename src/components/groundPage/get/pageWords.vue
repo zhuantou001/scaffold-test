@@ -1,9 +1,5 @@
 <template id="pageWords">
-  <div class="page-words">
-    <div :style="{'text-align': pageWordsStylePara}">
-      <span :style="{'color': pageWordsStyleColor}">{{pageWordsContent}}</span>
-    </div>
-  </div>
+      <span class="page-words cardsPs" :style="scaleStyle" v-html="pageWordsContent"></span>
 </template>
 
 
@@ -14,17 +10,36 @@
       return {
       };
     },
+    props: ['index'],
     methods: {
     },
     computed: {
       pageWordsContent () {
-        return this.$store.state.button.wordsObject.wordsContent;
+        let arr = this.$store.state.button.wordsArr;
+        for (let i in arr) {
+          if (arr[i].index === this.index) {
+            return arr[i].wordsContent;
+          }
+        }
       },
-      pageWordsStyleColor () {
-        return this.$store.state.button.wordsObject.wordsColor;
+      wordScale () {
+        let arr = this.$store.state.button.wordsArr;
+        for (let i in arr) {
+          if (arr[i].index === this.index) {
+            return arr[i].wordScale;
+          }
+        }
       },
-      pageWordsStylePara () {
-        return this.$store.state.button.wordsObject.wordsPara;
+      scaleStyle () {
+        let obj = {};
+        obj.transformOrigin = 'left';
+        obj.webkitTransformOrigin = 'left';
+        if (this.wordScale) {
+          obj.transform = 'scale(' + this.wordScale + ')';
+          obj.webkitTransform = 'scale(' + this.wordScale + ')';
+          obj.width = 100/this.wordScale +'%';
+        }
+        return obj;
       }
     }
   };
@@ -32,6 +47,25 @@
 
 <style lang="scss" scoped>
   .page-words{
-    margin:15px 0;
+    margin:15px 20px;
+  }
+  .cardsPs {
+    display: inline-block;
+    font-size: .75rem;
+    // -webkit-transform: scale(.8);
+    // -moz-transform: scale(.8);
+    // -ms-transform: scale(.8);
+    // -o-transform: scale(.8);
+    // transform: scale(.8);
+    white-space: nowrap;
+    color: #666;
+    // width: 125%;
+    // -webkit-transform-origin: left;
+    // -moz-transform-origin: left;
+    // -ms-transform-origin: left;
+    // -o-transform-origin: left;
+    // transform-origin: left;
+    margin: .5rem 0;
+    text-align: center;
   }
 </style>

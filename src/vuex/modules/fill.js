@@ -1,6 +1,8 @@
-/* 填写页 */
+/* 填写页 创建填写页样式时需要的数据 */
 
 const state = {
+  /* Fill body是否禁止滚动 */
+  isScroll: false,
   /* Fill右侧组件显示数组 */
   setFillComponentsItems: [{
     'component': 'setPageTitle',
@@ -9,92 +11,105 @@ const state = {
   }],
   /* Fill左侧组件显示数组 */
   getFillComponentsItems: [],
+  /* 添加的描述数量 */
+  setDescribeNum: 0,
   /* 页面属性数组 */
   // pageNature: [{pageTitle: '123', pageUrl: 111, pageDesc: '456'}]
   pageNature: [{
-    pageTitle: '填写页',
+    pageTitle: '资料填写',
     pageUrl: '',
     pageDesc: '',
-    majorColor: '#4ca9d4'
+    majorColor: '#666',
+    initUrl: '',
+    submitUrl: '',
+    submitField: ''
   }],
   /* 列表数组 */
   // listTitles: [{listTitle: '123', index: 111, listRemark: '456'}]
   listTitles: [],
-  /* 用户信息 */
+  /* 用户信息模块 */
   // personInfo: [{radioPerInfo: '1', perName: '', perCode: ''}]
-  personInfo: [{
+  personInfo: {
+    radioPerInfo: 1,
+    moduleTitle: '个人信息',
+    moduleTitleShow: 1,
+    moduleDesc: '',
+    isCardLi: 1
+  },
+  /* 选择手机号码模块 */
+  chooseTel: {
+    moduleTitle: '选择手机号',
+    moduleTitleShow: 1,
+    occupyFlag: 1,
+    moduleDesc: '',
+    optFlag: 2
+  },
+  /* 收货地址信息模块 */
+  deliveryAddress: {
+    moduleTitleShow: 1,
+    moduleTitle: '收货地址信息',
+    moduleDesc: '',
+    listTitle: '所在地区'
+  },
+  kingBroad: {
     radioPerInfo: 1
-  }],
-  /* 描述信息 */
+  },
+  /* 首月资费信息模块 */
+  firstMonth: {
+    moduleTitle: '首月资费',
+    moduleDesc: ''
+  },
+  /* 描述信息模块 */
   // describes: [{index: '1', describe: ''}]
   describes: [],
   /* 按钮 */
   button: [{
     buttonFont: '请输入按钮文字',
-    buttonColor: '#4ca9d4'
+    buttonColor: '#4ca9d4',
+    buttonRadius: 0,
+    isMajorColor: '1'
   }],
-  /* 协议 */
+  // 提交成功后弹框是否显示
+  showMsgBox: false,
+  // 提交成功弹框内容是否显示
+  showSuccess: false,
+  // 提交失败弹框内容是否显示
+  showFail: false,
+  // 失败弹框的内容
+  showFailBoxContent: '',
+  // 成功弹框的内容
+  succContent: {
+    title: '恭喜您获得XX卡', isLogistics: 1, image: '', hasContent: '',
+    noContent: '', isPopButton: '1', isTimer: '1', popButton: '我知道了', popButtonRadius: 0,
+    isJump: '1', jumpUrl: ''
+  },
+  // 是否是自提
+  isFetch: true,
+  // 协议弹框是否显示
+  showProtocolBox: false,
+  // 协议
   protocol: [{
-    protocolFlag: true,
-    protocolFont: '请输入协议名称',
-    protocolColor: '#4ca9d4'
+    protocolFont: '请输入协议名称', protocolColor: '#4ca9d4',
+    isMajorColor: '1', protocolContent: '',
+    isProtocolUrl: '1', protocolUrl: '',activityType: ''
   }],
-  // 成功弹出框内容
-  succContent: [{
-    successFlag: false,
-    succDes: '您好'
-   //  succDes: '<p><img src="http://www.wy.com:3001\\images\\alertImage\\upload_ff0004eda9ef5fc31bf643a1a1ae18d6.png" class=""></p>'+
-   //  '<p class="ql-align-center"><br/></p>'+
-   //  '<p class="ql-align-center">'+
-   //    '<span style="color: rgb(255, 153, 0);" class="ql-size-large">恭喜您获得唯卡</span>'+
-   // ' </p>'+
-   //  '<p class="ql-align-center"><br></p>'+
-   //  '<p class="ql-align-center">您的号码为：'+
-   //    '<span style="color: rgb(255, 153, 0);">18888888888</span>。我们将尽快为您配送，'+
-   //    '<span style="color: rgb(255, 153, 0);">20天内</span>激活，如未激活，号码将被回收哦！</p>'+
-   //  '<p class="ql-align-center"><br></p>'+
-   //  '<p class="ql-align-center">如需了解更多信息，请关注</p>'+
-   //  '<p class="ql-align-center">'+
-   //    '<span style="color: rgb(255, 153, 0);">微信公众号“唯卡助手"</span>，还有更多神秘特权！</p>'+
-   //  '<p class="ql-align-center"><br></p>'+
-   //  '<p> 首次下载联通手机营业厅，领取'+
-   //    '<span style="color: rgb(255, 153, 0);">300M</span>流量'+
-   //    '<a href="http://u.10010.cn/qAa9l" target="_blank" style="color: rgb(255, 153, 0);">http://u.10010.cn/qAa9l</a>'+
-   //  '</p>'
-  }],
-  sorryBuyContent:[{
-    sorryBuyFlag: false,
-    sorryBuyDes:''
-  }],
-  sorryCardContent:[{
-    sorryCardFlag: false,
-    sorryCardDes:''
-  }],
-  sorryWaitContent:[{
-    sorryWaitFlag: false,
-    sorryWaitDes:''
-  }],
-  sorryOvertimeContent:[{
-    sorryOvertimeFlag: false,
-    sorryOvertimeDes:''
-  }],
-  sorryTryagainContent:[{
-    sorryTryagainFlag: false,
-    sorryTryagainDes:''
-  }],
-  protocol: [{protocolFont: '请输入协议名称', protocolColor: '#4ca9d4'}],
+  /* 判断协议是否选中 */
+  isCheck: true,
   /* 号码归属地里的省份城市选择 */
-  chooseArea: [{curProvinceCode: 110000, curProvinceName: '北京', curCityCode: '', curCityName: ''}],
+  chooseArea: [{curProvinceCode: '', curProvinceName: '', curCityCode: '', curCityName: ''}],
   /* 收货地址里所在区域选择 */
-  chooseDisArea: [{curCityCode: '', curCityName: '', curDistrictCode: '', curDistrictName: ''}],
+  chooseDisArea: [{curProvinceCode: '', curProvinceName: '', curCityCode: '', curCityName: '', curDistrictCode: '', curDistrictName: ''}],
   /* 验证错误项 */
   // isError: [{errorItem: 'certName', errorDetail: '名字写错啦!'}]
-  isError: [{errorItem: '', errorDetail: ''}],
-  // 手机填写页里面的填写字段
-  submitFillData: {}
+  isError: [{errorItem: '', errorDetail: ''}]
+
 };
 
 const mutations = {
+  /* Fill body是否禁止滚动 */
+  newIsScroll(state, msg) {
+    state.isScroll = msg;
+  },
   /* Fill右侧组件数组 */
   newSetFillComponentsItems(state, msg) {
     state.setFillComponentsItems = msg;
@@ -102,6 +117,10 @@ const mutations = {
   /* Fill左侧组件数组 */
   newGetFillComponentsItems(state, msg) {
     state.getFillComponentsItems = msg;
+  },
+  /* 添加的描述数量 */
+  newSetDescribeNum(state, msg) {
+    state.setDescribeNum = msg;
   },
   /* 页面属性数组 */
   newPageNature(state, msg) {
@@ -111,9 +130,28 @@ const mutations = {
   newListTitles(state, msg) {
     state.listTitles = msg;
   },
-  /* 用户信息 */
+  /* 用户信息模块 */
   newPersonInfo(state, msg) {
     state.personInfo = msg;
+  },
+  /* 选择手机号模块 */
+  newChooseTel(state, msg) {
+    state.chooseTel = msg;
+  },
+  /* 是否调用occupy接口 */
+  newOccupyFlag(state, msg) {
+    state.occupyFlag = msg;
+  },
+  /* 收货地址信息模块 */
+  newDeliveryAddress(state, msg) {
+    state.deliveryAddress = msg;
+  },
+  newKingBroad(state, msg) {
+    state.kingBroad = msg;
+  },
+  /* 首月资费信息模块 */
+  newFirstMonth(state, msg) {
+    state.firstMonth = msg;
   },
   /* 描述信息 */
   newDescribes(state, msg) {
@@ -127,31 +165,36 @@ const mutations = {
   newProtocol(state, msg) {
     state.protocol = msg;
   },
-  newProtocolFlag(state, msg) {
-    state.protocol[0].protocolFlag = msg;
+  newProtocolUrlContent(state, msg) {
+    state.protocol[0].protocolUrlContent = msg;
   },
-  // 成功弹出框
+  newShowProtocolBox(state, msg) {
+    state.showProtocolBox = msg;
+  },
+  newIsCheck(state, msg) {
+    state.isCheck = msg;
+  },
+  // 提交成功后弹框是否显示
+  newShowMsgBox(state, msg) {
+    state.showMsgBox = msg;
+  },
+  // 成功弹框内容是否显示
+  newShowSuccess(state, msg) {
+    state.showSuccess = msg;
+  },
+  // 提交失败弹框内容是否显示
+  newShowFail(state, msg) {
+    state.showFail = msg;
+  },
+  // 失败弹框的内容
+  newShowFailBoxContent(state, msg) {
+    state.showFailBoxContent = msg;
+  },
   newSuccContent(state, msg) {
-    state.succContent[0].succDes = msg;
+  state.succContent = msg;
   },
-   newSuccFlag(state, msg) {
-    state.succContent[0].successFlag = msg;
-  },
-  // 各种警告框
-  newSorryBuyFlag(state,msg){
-    state.sorryBuyContent[0].sorryBuyFlag = msg;
-  },
-  newSorryCard(state,msg){
-    state.sorryCardContent[0].sorryCardFlag = msg;
-  },
-  newSorryWait(state,msg){
-    state.sorryWaitContent[0].sorryWaitFlag = msg;
-  },
-  newSorryOvertime(state,msg){
-    state.sorryOvertimeContent[0].sorryOvertimeFlag = msg;
-  },
-  newSorryTryagain(state,msg){
-    state.sorryTryagainContent[0].sorryTryagainFlag = msg;
+  newIsFetch(state, msg) {
+    state.isFetch = msg;
   },
   /* 号码归属地里的省份城市选择 */
   newChooseArea (state, msg) {
@@ -164,9 +207,6 @@ const mutations = {
   /* 验证错误项 */
   newIsError (state, msg) {
     state.isError = msg;
-  },
-  newSubmitFillData(state, msg) {
-    state.submitFillData = msg;
   }
 };
 

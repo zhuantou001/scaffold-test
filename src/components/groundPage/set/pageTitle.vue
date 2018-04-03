@@ -1,13 +1,16 @@
 <template id="pageTitle">
-  <div class="assembly">
-    <h3><i class="el-icon-edit"></i> 添加标题</h3>
+  <div class="assembly" :class="{packUp: isSpread}">
+    <h3 @click="spread">
+      <i class="el-icon-edit"></i> 标题
+      <a class="packUpIcon"><i class="el-icon-arrow-down" :class="{rotate:isSpread, rotate2:!isSpread}"></i></a>
+    </h3>
     <el-row :gutter="20">
       <el-col :span="6"><label>标题</label></el-col>
       <el-col :span="18"><el-input v-model="page_title" placeholder="请输入内容"></el-input></el-col>
     </el-row>
     <el-row :gutter="20">
-      <el-col :span="6"><label>自定义链接名</label></el-col>
-      <el-col :span="18"><el-input v-model="page_url" placeholder="例如: tencent"></el-input></el-col>
+      <el-col :span="6"><label>自定义跳转别名</label></el-col>
+      <el-col :span="18"><el-input v-model="page_url" placeholder="一个由字母、下划线、横杠、数字组成的字符串"></el-input></el-col>
     </el-row>
     <el-row :gutter="20">
       <el-col :span="6"><label>页面描述</label></el-col>
@@ -22,11 +25,21 @@
     name: 'listTitle',
     data () {
       return {
+        isSpread: true
       };
     },
     mounted () {
     },
     watch: {
+    },
+    methods: {
+      spread () {
+        if (this.isSpread) {
+          this.isSpread = false;
+        } else {
+          this.isSpread = true;
+        }
+      }
     },
     computed: {
       page_title: {

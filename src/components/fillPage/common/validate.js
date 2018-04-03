@@ -1,56 +1,90 @@
 import Vue from 'vue';
 import IdCardValidate from './id_check';
-// 填写页面验证,验证不通过的错误提示存到Vuex的error数组里,验证通过的填写信息存在vuex的submitFillData数组里
+// 填写页面验证,验证不通过的错误提示存到Vuex的error数组里
 Vue.prototype.validate = function (value, item) {
   // 需要提交的数据(暂定,需要填写页那边的后台确认字段)
-  const submitFillData = this.$store.state.fill.submitFillData;
+  // const submitFillDataButton = this.$store.state.fill.submitFillDataButton;
   // 验证名字
   if (item === 'certName') {
-    console.log(item+ ' : ' + CustCheck.checkReceiverName(value));
+    // console.log(item+ ' : ' + CustCheck.checkReceiverName(value));
     if(CustCheck.checkReceiverName(value) != true) {
       this.showError(item, CustCheck.checkReceiverName(value));
       return false;
     } else {
-      submitFillData[item] = value;
-      this.hideError(item);
-    }
-  }
-  // 验证用户手机号
-  if (item == 'tel') {
-    console.log(item+ ' : ' + CustCheck.checkPhone(value));
-    if(CustCheck.checkPhone(value) != true) {
-      this.showError(item, CustCheck.checkPhone(value));
-      return false;
-    } else {
-      submitFillData[item] = value;
       this.hideError(item);
     }
   }
   // 验证身份证号码
-  if (item === 'certNo') {
-    console.log(item+ ' : ' + CustCheck.checkIdCard(value));
+  if (item === 'certId') {
+    // console.log(item+ ' : ' + CustCheck.checkIdCard(value));
     if(CustCheck.checkIdCard(value) != true) {
       this.showError(item, CustCheck.checkIdCard(value));
       return false;
     } else {
-      submitFillData[item] = value;
+      this.hideError(item);
+    }
+  }
+  // 验证用户手机号
+  if (item == 'contractPhone') {
+    // console.log(item+ ' : ' + CustCheck.checkPhone(value));
+    if(CustCheck.checkPhone(value) != true) {
+      this.showError(item, CustCheck.checkPhone(value));
+      return false;
+    } else {
       this.hideError(item);
     }
   }
   // 验证收货地址
   if (item === 'addressInfo') {
-    console.log(item+ ' : ' + CustCheck.checkAddressInfo(value));
+    // console.log(item+ ' : ' + CustCheck.checkAddressInfo(value));
     if(CustCheck.checkAddressInfo(value) != true) {
       this.showError(item, CustCheck.checkAddressInfo(value));
       return false;
     } else {
-      submitFillData[item] = value;
+      this.hideError(item);
+    }
+  }
+  // 验证有没有号码归属地
+  if (item === 'chooseTelAdd') {
+    // console.log(item+ ' : ' + CustCheck.checkNumAddress(value));
+    if(CustCheck.checkNumAddress(value) != true) {
+      this.showError(item, CustCheck.checkNumAddress(value));
+      return false;
+    } else {
+      this.hideError(item);
+    }
+  }
+  // 验证有没有选择号码
+  if (item === 'chooseTel') {
+    // console.log(item+ ' : ' + CustCheck.checkNumber(value));
+    if(CustCheck.checkNumber(value) != true) {
+      this.showError(item, CustCheck.checkNumber(value));
+      return false;
+    } else {
+      this.hideError(item);
+    }
+  }
+  // 验证有没有首月资费
+  if (item === 'firstMonth') {
+    // console.log(item+ ' : ' + CustCheck.checkFirstMonth(value));
+    if(CustCheck.checkFirstMonth(value) != true) {
+      this.showError(item, CustCheck.checkFirstMonth(value));
+      return false;
+    } else {
+      this.hideError(item);
+    }
+  }
+  // 验证有没有配送区县
+  if (item === 'chooseAdd') {
+    // console.log(item+ ' : ' + CustCheck.checkAddress(value));
+    if(CustCheck.checkAddress(value) != true) {
+      this.showError(item, CustCheck.checkAddress(value));
+      return false;
+    } else {
       this.hideError(item);
     }
   }
 
-  console.log(JSON.stringify(submitFillData));
-  this.$store.commit('newSubmitFillData', submitFillData);
 };
 
 // 错误显示
@@ -60,29 +94,34 @@ Vue.prototype.showError = function (item, detail) {
   obj.errorItem = item;
   obj.errorDetail = detail;
   // 判断错误提示数组里是否有某条数据的错误提示, 有则覆盖, 没有则添加
-  if (this.arrayIn(errorList, item) === false) {
+  if (this.arrayInError(errorList, item) === false) {
     errorList.unshift(obj);
   } else {
-    const i = this.arrayIn(errorList, item);
+    const i = this.arrayInError(errorList, item);
     errorList.splice(i, 1);
     errorList.unshift(obj); // 先删掉,再放到第一个
   }
-  console.log(JSON.stringify(errorList));
+  // console.log(JSON.stringify(errorList));
   this.$store.commit('newIsError', errorList);
+  window.scrollTo(0, 0);
 };
 // 验证通过,错误隐藏
 Vue.prototype.hideError = function (item) {
   let errorList = this.$store.state.fill.isError;
-  if (this.arrayIn(errorList, item) === false) {
+  if (this.arrayInError(errorList, item) === false) {
     return false;
   } else {
-    const i = this.arrayIn(errorList, item);
+    const i = this.arrayInError(errorList, item);
     errorList.splice(i, 1);
     this.$store.commit('newIsError', errorList);
   }
 };
+// 点击别的页面, 验证错误隐藏
+Vue.prototype.hideErrorOther = function (item) {
+  this.$store.commit('newIsError', [{errorItem: '', errorDetail: ''}]);
+};
 // 数组里是否含有某字段, 有的话返回索引
-Vue.prototype.arrayIn = function (arr, item) {
+Vue.prototype.arrayInError = function (arr, item) {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].errorItem === item) {
       return i;
@@ -94,16 +133,16 @@ const CustCheck = {
   // 机主姓名验证
   checkReceiverName: (receiverName) => {
     if (isEmpty(receiverName) === '') {
-      return '请准确填写姓名1';
+      return '请准确填写姓名';
     }
     if (receiverName.length > 20) {
-      return '姓名过长，请您最多输入20个汉字2';
+      return '姓名过长，请您最多输入20个汉字';
     }
     if (chineseLen(receiverName) < 2) {
-      return '姓名必须至少包含2个汉字3';
+      return '姓名必须至少包含2个汉字';
     }
     if (checkScript(receiverName)) {
-      return '姓名包含非法字符4';
+      return '姓名包含非法字符';
     }
     return true;
   },
@@ -189,7 +228,7 @@ const CustCheck = {
   },
   // 选择首月资费
   checkFirstMonth: (number) => {
-    if (isEmpty(number)) {
+    if (!number) {
       return '请选择首月资费';
     }
     return true;
@@ -203,13 +242,13 @@ const CustCheck = {
   },
   // 选择号码归属地
   checkNumAddress: (address) => {
-    if (address === '请选择号码归属地') {
+    if (address === '') {
       return '请选择号码归属地';
     }
     return true;
   },
   checkAddress: (address) => {
-    if (address === '请选择区/县') {
+    if (address === '') {
       return '请选择您的配送区县';
     }
     return true;
@@ -262,6 +301,8 @@ const chineseLen = (txt) => {
 };
 // 电话号码格式校验
 const checkMobiles = number => /^((13|15|18|14|17)+\d{9})$/.test(number);
+// 联通号码格式校验
+const checkCUCC = number => /^((130|131|132|155|156|185|186|145|176|170|166)+\d{8})$/.test(number);
 // 校验非法字符
 const checkScript = (text) => {
   let flag = false;

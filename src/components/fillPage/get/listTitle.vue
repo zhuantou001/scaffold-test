@@ -40,7 +40,6 @@
 
 <style lang="scss" scoped>
   .list-title {
-    font-size: 12px;
     padding: 0 15px;
     height: 30px;
     line-height: 30px;

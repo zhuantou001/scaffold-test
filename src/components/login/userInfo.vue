@@ -6,6 +6,7 @@
         <i class="el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item class='bottom_border' command="jump">用户授权管理</el-dropdown-item>
         <el-dropdown-item command="quit">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -58,9 +59,15 @@
           self.$router.push('/');
         }, 50);
       },
+      jump () {
+        this.$store.commit('newShowModal', true);
+      },
       handleCommand (command) {
         if (command === 'quit') {
           this.quit();
+        }
+        if (command === 'jump') {
+          this.jump();
         }
       }
     },
@@ -86,5 +93,8 @@
   .el-icon-caret-bottom{
     position: relative;
     top:-12px;
+  }
+  .bottom_border {
+    border-bottom: 1px solid #eee;
   }
 </style>

@@ -1,42 +1,37 @@
-<template>
+ <template>
   <div>
-    <div class="list-title"><p>个人信息</p></div>
+    <div class="list-title" v-show="showTitle"><p>{{moduleTitle}}<span class="list-desc" v-html="moduleDesc"></span></p></div>
     <ul class="fill-list line35">
       <li :class="{error:errorItem === 'certName'}">
         <div class="p-title">姓名</div>
         <div class="p-content">
-          <span v-if="radioPerInfo === 2" id="certName" class="user-message"></span>
-          <input v-else v-model.trim='certName' type="text" title="姓名" placeholder="请输入姓名"/>
+          <span v-if="radioPerInfo === 2" class="user-message"></span>
+          <input v-else v-model.trim='certName' type="text" title="姓名" placeholder="请输入身份证件姓名"/>
         </div>
       </li>
-      <li :class="{error:errorItem === 'tel'}">
-        <div class="p-title">联系电话</div>
-        <div class="p-content">
-          <span v-if="radioPerInfo === 2" id="tel" class="user-message"></span>
-          <input v-else v-model.trim='tel' type="tel" title="联系电话" placeholder="请输入联系电话" maxlength="11"/>
-        </div>
-      </li>
-      <li :class="{error:errorItem === 'certNo'}">
+      <li :class="{error:errorItem === 'certId'}" v-if="isCardLi===1">
         <div class="p-title">身份证号</div>
         <div class="p-content">
-          <span v-if="radioPerInfo === 2" id="certNo" class="user-message"></span>
-          <input v-else v-model.trim='certNo' type="text" title="身份证号" placeholder="请输入身份证号"/>
+          <span v-if="radioPerInfo === 2" class="user-message"></span>
+          <input v-else v-model.trim='certId' type="text" title="身份证号" placeholder="请输入身份证号" :maxlength=18 />
+        </div>
+      </li>
+      <li :class="{error:errorItem === 'contractPhone'}">
+        <div class="p-title">联系电话</div>
+        <div class="p-content">
+          <span v-if="radioPerInfo === 2" class="user-message"></span>
+          <input v-else v-model.trim='contractPhone' type="tel" title="联系电话" placeholder="请输入联系电话" maxlength="11"/>
         </div>
       </li>
     </ul>
   </div>
 </template>
 
-
 <script>
-  import '../../common/directive';
-  import validate from '../../common/validate';
+  import validate from '../common/validate';
   export default {
     data () {
       return {
-        certName: '',
-        tel: '',
-        certNo: ''
       };
     },
     props: ['index'],
@@ -46,16 +41,59 @@
       certName: function (val) {
         this.validate(val, 'certName');
       },
-      tel: function (val) {
-        this.validate(val, 'tel');
+      contractPhone: function (val) {
+        this.validate(val, 'contractPhone');
       },
-      certNo: function (val) {
-        this.validate(val, 'certNo');
+      certId: function (val) {
+        this.validate(val, 'certId');
       }
     },
     computed: {
+      certName: {
+        get () {
+          return this.$store.state.fillInfoSubmit.certName;
+        },
+        set (value) {
+          this.$store.commit('newCertName', value);
+        }
+      },
+      certId: {
+        get () {
+          return this.$store.state.fillInfoSubmit.certId;
+        },
+        set (value) {
+          this.$store.commit('newCertId', value);
+        }
+      },
+      contractPhone: {
+        get () {
+          return this.$store.state.fillInfoSubmit.contractPhone;
+        },
+        set (value) {
+          this.$store.commit('newContractPhone', value);
+        }
+      },
       radioPerInfo () {
-        return this.$store.state.fill.personInfo[0].radioPerInfo;
+        return this.$store.state.fill.personInfo.radioPerInfo;
+      },
+      moduleTitle () {
+        return this.$store.state.fill.personInfo.moduleTitle;
+      },
+      moduleDesc () {
+        return this.$store.state.fill.personInfo.moduleDesc;
+      },
+      moduleTitleShow () {
+        return this.$store.state.fill.personInfo.moduleTitleShow;
+      },
+      isCardLi () {
+        return this.$store.state.fill.personInfo.isCardLi;
+      },
+      showTitle () {
+        if (this.moduleTitleShow === 1) {
+          return true;
+        } else if (this.moduleTitleShow === 2) {
+          return false;
+        }
       },
       errorItem () {
         if (this.$store.state.fill.isError.length > 0) {
@@ -71,35 +109,41 @@
   };
 </script>
 
+<style>
+  .list-desc>p{display: inline-block;}
+</style>
 <style lang="scss" scoped>
   $error: #ff3021;
   $theme: #40c9b3;
   .list-title {
-    font-size: 12px;
-    padding: 0 15px;
-    height: 30px;
-    line-height: 30px;
-    background: #f7f7f7;
-    color: #888;
-    border-top: 2PX solid #f1f1f1;
-    border-bottom: 2PX solid #f1f1f1;
-    p {
-      transform: scale(0.917);
-      transform-origin: left;
-      span {
-        color: #bababa;
-        i {
-          font-style: normal;
-          color: #ff5252;
-        }
-      }
-    }
+    font-weight: bold;
+    color: #6e6e6e;
+    font-size: .75rem;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    padding: 0 1.125rem;
+    margin: 0;
+    border-bottom: 1px solid #f1f1f1;
+    border-top: 1px solid #f1f1f1;
+  p {
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+    width:100%;
+  span {
+    color: #bababa;
+  i {
+    font-style: normal;
+    color: #ff5252;
+  }
+  }
+  }
   }
   .fill-list {
-    padding-left: 15px;
-    line-height: 40px;
+    padding-left: 1.125rem;
+    line-height: 2.5rem;
     background-color: #fff;
-    font-size: 13px;
+    font-size: .875rem;
   li {
     border-bottom: 1PX solid #f8f8f8;
     position: relative;
@@ -118,7 +162,7 @@
      content: '';
      position: absolute;
      top: 0;
-     left: -15px;
+     left: -1.125rem;
      right: 0;
      height: 100%;
      border: 1PX solid $error;
@@ -130,22 +174,25 @@
      height: auto;
    }
   .p-title {
-    width: 80px;
+    width: 3.75rem;
     float: left;
   }
   .p-content {
-    padding-left: 90px;
-    padding-right: 15px;
+    padding-left: 5.625rem;
+    padding-right: 1.125rem;
     position: relative;
-    height: 40px;
+    height: 2.5rem;
   input {
     display: block;
     width: 100%;
-    height: 40px;
-    line-height: 20px;
-    padding: 10px 0;
+    height: 2.5rem;
+    line-height: 1.25rem;
+    padding: .625rem 0;
+    font-size: .875rem;
     border: 0;
     outline: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
   .user-message{
@@ -185,20 +232,19 @@
      content: '';
      display: block;
      position: absolute;
-     right: 15px;
-     top: 15px;
-     width: 10px;
-     height: 10px;
+     right: .9375rem;
+     top: .9375rem;
+     width: .625rem;
+     height: .625rem;
      border-top: 1PX solid #b4b4b4;
      border-right: 1PX solid #b4b4b4;
      transform: rotate(45deg);
    }
   }
   &.p-text-area {
-     padding: 10px 20px 10px 0;
-     line-height: 20px;
-     min-height: 20px;
-     position: relative;
+     padding: .625rem 1.25rem .625rem 0;
+     line-height: 1.25rem;
+     min-height: 1.25rem;
    }
   }
   .p-content-error i {
@@ -260,5 +306,33 @@
   }
   }
   }
+  }
+  .numberTips {
+    color:$theme;
+    display: none;
+    font-size: 10px;
+    line-height: 20px;
+    transform: scale(1);
+    transform-origin: left;
+    white-space: nowrap;
+    padding-left: 17.6px;
+    margin-bottom: 8px;
+  i{
+    font-style: normal;
+  }
+  }
+  .text-area {
+    display: block;
+    font-size: 14px;
+    word-break: break-all;
+    width: 100%;
+    line-height: 20px;
+    border: 0;
+    outline: none;
+    resize: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    overflow-y: hidden;
   }
 </style>
